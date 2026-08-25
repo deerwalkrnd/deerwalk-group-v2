@@ -1,5 +1,4 @@
-# Deerwalk static site boilerplate
-
+# Deerwalk Group static site
 Next.js App Router site configured for **static export** (`/out`), fast images, and mobile-first layout.
 
 ## Quick start
