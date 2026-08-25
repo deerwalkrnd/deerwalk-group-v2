@@ -1,0 +1,6 @@
+# Drop optimized images here (prefer WebP / AVIF, keep under ~200–400KB for heroes).
+# Reference them as /images/your-file.webp in next/image or ResponsiveImage.
+#
+# Examples used by the starter pages:
+#   public/images/hero.jpg
+#   public/images/sample.jpg

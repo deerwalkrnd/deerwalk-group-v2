@@ -1,0 +1,14 @@
+---
+description: Static site — maximize reusable components; pages only compose
+alwaysApply: true
+---
+
+# Component-first static site
+
+- Pages in `src/app/**/page.tsx` **compose** components; do not inline repeated header/hero/section markup.
+- Prefer **many small reusable components** in `src/components/`. If the same JSX appears twice, extract it.
+- Reuse `Brand`, `SiteNav`, `SiteHeader`, `SiteFooter`, `Container`, `Section`, `Hero`, `ResponsiveImage` before inventing new ones.
+- Shared strings (brand, nav) live in `src/lib/site.ts` — pass via props, do not hardcode on every page.
+- All images go through `ResponsiveImage` (or `Hero`). Set `sizes`; use `priority` only above the fold.
+- Keep static export: no server features, no `"use client"` unless interaction needs it.
+- Follow `AGENTS.md` for full rules.
