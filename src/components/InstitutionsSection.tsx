@@ -29,8 +29,10 @@ function InstitutionCard({
       <div className="institution-overlay" aria-hidden="true" />
       <div className="institution-content">
         <h3>{item.name}</h3>
-        <p>{item.description}</p>
-        <span className="institution-cta">{item.cta}</span>
+        <div className="institution-copy">
+          <p>{item.description}</p>
+          <span className="institution-cta">{item.cta}</span>
+        </div>
       </div>
     </button>
   );

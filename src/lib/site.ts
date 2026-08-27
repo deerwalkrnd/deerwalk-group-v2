@@ -7,6 +7,10 @@ export type Leader = {
   name: string;
   role: string;
   image: string;
+  /** Bio shown in the leadership popup */
+  bio: string;
+  /** CSS object-position for the popup photo crop */
+  imagePosition?: string;
 };
 
 export type Institution = {
@@ -87,23 +91,28 @@ export const siteConfig = {
     people: [
       {
         name: "Rudra Pandey",
-        role: "Founder",
+        role: "Chairperson Emeritus / Founder",
         image: "/images/dwg/leader-rudra.webp",
+        bio: "Rudra is a pioneer in the software outsourcing industry in Nepal with significant IT experience in the financial service industry. He received his Bachelor's degree in Electrical Engineering from Pakistan and PhD in Economics from Northeastern University, USA. His vision is to create a comprehensive learning in Nepal focusing on technology and its application for the benefit of the country.",
       },
       {
         name: "Hitesh Karki",
         role: "Chairperson",
         image: "/images/dwg/leader-hitesh.webp",
+        bio: "Hitesh's core responsibility is to look after the curriculum, ensure timely execution of classes and help connect the students with the happenings of the industry. He completed his Bachelor's degree in Computer Science, from Ferguson College, Pune University, his MBA (Executive) from Kathmandu University (KU) and is currently pursuing his PhD from Kathmandu University.",
       },
       {
         name: "Samjhana Pokhrel",
-        role: "Senior Vice President of Operations",
+        role: "Senior Vice President (SVP) of Operations",
         image: "/images/dwg/leader-samjhana.webp",
+        imagePosition: "center 18%",
+        bio: "Samjhana brings over eight years of experience in higher education, having contributed to key areas such as Admissions, Administration, Examination, and Placement. As Senior Vice President (SVP) of Operations, she is dedicated to advancing academic quality, driving innovation, and strengthening institutional growth. She holds a Bachelor's in Information Management and a Master's in English Literature from Pokhara University, along with a Master's in Data Science from the University of Westminster, London—reflecting her interdisciplinary expertise across humanities, management, and technology. With a strong blend of academic and administrative insight, Samjhana is committed to fostering a forward-thinking, student-focused academic environment.",
       },
       {
         name: "Pooja Neupane",
         role: "Director of Finance",
         image: "/images/dwg/leader-pooja.webp",
+        bio: "Pooja Neupane has recently assumed the role of Associate Director of Finance at Deerwalk Group Limited. Holding a Chartered Accountant designation from the Institute of Chartered Accountants of India, her professional journey includes notable experience at TR Upadhya and Co., where she honed her skills in accounting and finance.",
       },
     ] satisfies Leader[],
   },
@@ -185,7 +194,7 @@ export const siteConfig = {
           "Member-owned cooperative supporting families across the Deerwalk community.",
         detail:
           "Deerwalk Coop grew alongside the campuses as a member-owned cooperative for families across the Deerwalk community. What began as mutual support became a trusted network for shared growth. Its foundation was never really about transactions alone. It was about the philosophy behind belonging. Shared responsibility. Practical care. Members who leave each season stronger than they arrived. That idea is still proven every year, when households, students, and partners rely on the Coop to connect education, livelihood, and community under one roof.",
-        cta: "Visit DC site →",
+        cta: "Visit Page →",
         href: "#",
         image: "/images/dwg/inst-bharatpur.webp",
       },
@@ -196,7 +205,7 @@ export const siteConfig = {
           "Community development and outreach programs across the Deerwalk ecosystem.",
         detail:
           "Deerwalk Foundation began as the outreach arm of the ecosystem — extending opportunity beyond campus gates to communities that needed support. Growth here was never only about programs on a calendar. It was about the philosophy behind service. Access to learning. Dignity in partnership. People who leave each initiative with more capability than before. That mission is renewed every year, when Foundation projects, scholarships, and local collaborations ask Deerwalk to prove that education and community care still move together.",
-        cta: "Visit DF site →",
+        cta: "Visit Page →",
         href: "#",
         image: "/images/dwg/inst-sifal.webp",
       },
