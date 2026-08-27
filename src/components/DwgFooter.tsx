@@ -1,22 +1,17 @@
-import { Logo } from "@/components/Logo";
 import { siteConfig } from "@/lib/site";
 
 export function DwgFooter() {
-  const { footer, footerBlurbLines, email, phone, location, name } = siteConfig;
+  const { footer, footerBlurb, email, phone, location, name } = siteConfig;
 
   return (
     <footer className="dwg-footer" id="contact">
       <div className="dwg-footer-inner">
         <div className="dwg-footer-grid">
           <div className="dwg-footer-brand">
-            <Logo className="logo-footer" />
-            <p className="dwg-footer-blurb">
-              {footerBlurbLines.map((line) => (
-                <span key={line} className="dwg-footer-blurb-line">
-                  {line}
-                </span>
-              ))}
-            </p>
+            <a href="/" className="dwg-footer-wordmark">
+              {name}
+            </a>
+            <p className="dwg-footer-blurb">{footerBlurb}</p>
           </div>
 
           <div className="dwg-footer-col">
