@@ -82,7 +82,7 @@ export const siteConfig = {
     titleLine2: "The Founder",
     name: "Rudra Pandey",
     image: "/images/dwg/founder.webp",
-    body: "Deerwalk began as a bet that Nepali talent could compete anywhere in the world. Rudra Pandey proved that first in business, building companies that grew from Kathmandu into global markets. Then came a bigger commitment. Education. From Deerwalk Institute of Technology to Deerwalk Sifal School, and later to Dhading, Pokhara, and Bharatpur, the same philosophy has followed every new campus. Read deeply. Think clearly. Build boldly. That mission hasn't changed since the beginning. It's still about nurturing curious minds capable of shaping their own future.",
+    body: "Deerwalk started with a simple idea. Build things that matter.  Over the years, that idea has taken us into technology, education, training, and several other areas.  Our businesses may be different, but our values remain the same. We believe in good people, hard work, doing things right, and always looking for a better way.  We believe in creating opportunities. We believe in learning and getting better. We believe in thinking differently and having the courage to try.  Oftentimes, we choose a less treaded path because we believe it is the right one. We trust our judgment, stand by our convictions, and are willing to take the road less traveled.  We are still learning. We are still building. And we are still figuring things out.  That is what makes the journey exciting.  Deerwalk is a group of people who want to build things that are meaningful, lasting, and impactful.",
   },
   leadership: {
     eyebrow: "Leadership",
@@ -196,7 +196,7 @@ export const siteConfig = {
           "Deerwalk Coop grew alongside the campuses as a member-owned cooperative for families across the Deerwalk community. What began as mutual support became a trusted network for shared growth. Its foundation was never really about transactions alone. It was about the philosophy behind belonging. Shared responsibility. Practical care. Members who leave each season stronger than they arrived. That idea is still proven every year, when households, students, and partners rely on the Coop to connect education, livelihood, and community under one roof.",
         cta: "Visit Page →",
         href: "#",
-        image: "/images/dwg/inst-bharatpur.webp",
+        image: "/images/dwg/DeerwalkCOUP.png",
       },
       {
         id: "foundation",
