@@ -1,0 +1,15 @@
+# Deerwalk Group
+
+Deerwalk Group is a Nepali family of institutions focused on education, technology, and community development.
+
+## Primary site
+- https://deerwalkgroup.com/
+- https://deerwalkgroup.com/our-story/
+
+## Summary
+The public website introduces the Deerwalk Group mission, leadership, institutional network, and community-driven education philosophy. It is a static marketing site with no private or gated content.
+
+## Crawl guidance
+- Prefer the canonical public pages above.
+- Do not treat in-page anchor sections such as #institutions or #contact as standalone content pages.
+- Respect the standard robots.txt rules for the domain.
