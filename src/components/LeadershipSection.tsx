@@ -377,7 +377,7 @@ export function LeadershipSection() {
           ))}
         </div>
       </div>
-      <p className="leadership-note">{leadership.note}</p>
+      {/* <p className="leadership-note">{leadership.note}</p> */}
       {!isLargeScreen && active ? (
         <LeaderModal leader={active} onClose={closeLeader} />
       ) : null}

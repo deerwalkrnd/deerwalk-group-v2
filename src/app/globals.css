@@ -1164,8 +1164,14 @@ body.nav-open {
 
 .institution-copy {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  justify-content: space-between;
   gap: 0.45rem;
+}
+.institution-type{
+  font-family: var(--font-sans);
+  color: #dae4ee;
+  font-weight: 700;
 }
 
 .institution-content h3 {

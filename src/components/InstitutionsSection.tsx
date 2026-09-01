@@ -30,8 +30,9 @@ function InstitutionCard({
       <div className="institution-content">
         <h3>{item.name}</h3>
         <div className="institution-copy">
-          <p>{item.description}</p>
-          <span className="institution-cta">{item.cta}</span>
+            <span className="institution-cta">{item.cta}</span>
+          <span className="institution-type">{item.type}</span>
+        
         </div>
       </div>
     </button>

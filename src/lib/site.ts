@@ -24,6 +24,7 @@ export type Institution = {
   linkLabel?: string;
   href: string;
   image: string;
+  type: string;
 };
 
 export type Stat = {
@@ -105,14 +106,14 @@ export const siteConfig = {
       {
         name: "Samjhana Pokhrel",
         role: "Senior Vice President (SVP) of Operations",
-        image: "/images/dwg/leader-samjhana.webp",
+        image: "/images/dwg/leader-samjhana.png",
         imagePosition: "center 18%",
         bio: "Samjhana brings over eight years of experience in higher education, having contributed to key areas such as Admissions, Administration, Examination, and Placement. As Senior Vice President (SVP) of Operations, she is dedicated to advancing academic quality, driving innovation, and strengthening institutional growth. She holds a Bachelor's in Information Management and a Master's in English Literature from Pokhara University, along with a Master's in Data Science from the University of Westminster, London—reflecting her interdisciplinary expertise across humanities, management, and technology. With a strong blend of academic and administrative insight, Samjhana is committed to fostering a forward-thinking, student-focused academic environment.",
       },
       {
         name: "Pooja Neupane",
         role: "Director of Finance",
-        image: "/images/dwg/leader-pooja.webp",
+        image: "/images/dwg/leader-pooja.png",
         bio: "Pooja Neupane has recently assumed the role of Associate Director of Finance at Deerwalk Group Limited. Holding a Chartered Accountant designation from the Institute of Chartered Accountants of India, her professional journey includes notable experience at TR Upadhya and Co., where she honed her skills in accounting and finance.",
       },
     ] satisfies Leader[],
@@ -132,6 +133,7 @@ export const siteConfig = {
         cta: "Visit DWIT site →",
         href: "https://deerwalk.edu.np/DWIT/",
         image: "/images/dwg/inst-dwit.webp",
+        type:"College",
       },
       {
         id: "dps",
@@ -143,6 +145,7 @@ export const siteConfig = {
         cta: "Visit DPS site →",
         href: "https://www.deerwalk.edu.np/pokhara-school",
         image: "/images/dwg/DPS.jpg",
+        type:"School",
       },
       {
         id: "dds",
@@ -154,6 +157,8 @@ export const siteConfig = {
         cta: "Visit DDS site →",
         href: "https://deerwalk.edu.np/dhading-school",
         image: "/images/dwg/inst-dhading.webp",
+        type:"School",
+
       },
       {
         id: "dss",
@@ -165,6 +170,8 @@ export const siteConfig = {
         cta: "Visit DSS site →",
         href: "https://deerwalk.edu.np/sifal-school",
         image: "/images/dwg/inst-sifal.webp",
+                type:"School",
+
       },
       {
         id: "dbs",
@@ -176,6 +183,8 @@ export const siteConfig = {
         cta: "Visit DBS site →",
         href: "https://deerwalk.edu.np/bharatpur-school",
         image: "/images/dwg/DBS.jpg",
+        type:"School",
+
       },
       {
         id: "learning-center",
@@ -187,6 +196,7 @@ export const siteConfig = {
         cta: "Visit DTC site →",
         href: "https://deerwalktrainingcenter.com/",
         image: "/images/dwg/inst-training.png",
+        type:"Training Center",
       },
       {
         id: "coop",
@@ -199,6 +209,7 @@ export const siteConfig = {
         linkLabel: "Visit Socials",
         href: "https://www.instagram.com/deerwalk.coop/",
         image: "/images/dwg/DeerwalkCOUP.png",
+        type:"Coop",
       },
       {
         id: "foundation",
@@ -210,6 +221,7 @@ export const siteConfig = {
         cta: "Visit Page →",
         href: "https://deerwalk.org/",
         image: "/images/dwg/Deerwalk_Foundation.jpg",
+        type:"Non-Profit Organization",
       },
       {
         id: "learningcenter",
@@ -221,6 +233,7 @@ export const siteConfig = {
         cta: "Visit Site →",
         href: "https://deerwalk.edu.np/learning-center",
         image: "/images/dwg/LearningCenter.jpg",
+        type:"Non-Profit Organization",
       }
     ] satisfies Institution[],
   },
