@@ -136,15 +136,6 @@
     transition: opacity 0.18s ease;
   }
 
-  .leadership-grid.is-switching .leader-card.is-switching-in .leader-image {
-    animation: none;
-  }
-
-  .leadership-grid.is-switching .leader-card.is-switching-in .leader-close {
-    opacity: 1;
-    animation: none;
-  }
-
   .leadership-grid.is-switching .leader-card.is-switching-in .leader-bio-scroll {
     transition-delay: 0.14s;
   }
@@ -208,6 +199,10 @@
   }
 
   .leader-card.is-expanded .leader-image {
+    transform: scale(1);
+  }
+
+  .leader-card.is-expanded.is-expand-intro .leader-image {
     animation: leader-image-settle 0.95s var(--leader-ease) both;
   }
 
@@ -221,6 +216,11 @@
   }
 
   .leader-card.is-expanded .leader-close {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .leader-card.is-expanded.is-expand-intro .leader-close {
     opacity: 0;
     animation: leader-close-in 0.42s var(--leader-ease-content) 0.42s forwards;
   }

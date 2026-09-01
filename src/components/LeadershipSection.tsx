@@ -37,6 +37,7 @@ function useMinWidth(minWidth: number) {
 type LeaderCardProps = {
   leader: Leader;
   isExpanded: boolean;
+  isExpandIntro: boolean;
   isShrinking: boolean;
   isSwitchingIn: boolean;
   isSwitchingOut: boolean;
@@ -51,6 +52,7 @@ type LeaderCardProps = {
 function LeaderCard({
   leader,
   isExpanded,
+  isExpandIntro,
   isShrinking,
   isSwitchingIn,
   isSwitchingOut,
@@ -109,7 +111,7 @@ function LeaderCard({
 
   return (
     <article
-      className={`leader-card${isExpanded ? " is-expanded" : ""}${isShrinking ? " is-shrinking" : ""}${isSwitchingIn ? " is-switching-in" : ""}${isSwitchingOut ? " is-switching-out" : ""}`}
+      className={`leader-card${isExpanded ? " is-expanded" : ""}${isExpandIntro ? " is-expand-intro" : ""}${isShrinking ? " is-shrinking" : ""}${isSwitchingIn ? " is-switching-in" : ""}${isSwitchingOut ? " is-switching-out" : ""}`}
       aria-labelledby={titleId}
       aria-expanded={isExpanded}
       aria-busy={isShrinking || isSwitchingIn || isSwitchingOut}
@@ -191,6 +193,7 @@ export function LeadershipSection() {
   const [isClosing, setIsClosing] = useState(false);
   const [isSwitching, setIsSwitching] = useState(false);
   const [switchFromIndex, setSwitchFromIndex] = useState(-1);
+  const [expandIntroName, setExpandIntroName] = useState<string | null>(null);
   const isLargeScreen = useMinWidth(LG_BREAKPOINT);
   const inlineCloseRef = useRef<HTMLButtonElement>(null);
   const shrinkFallbackRef = useRef<number | null>(null);
@@ -207,6 +210,7 @@ export function LeadershipSection() {
       if (!isLargeScreen) {
         setIsClosing(false);
         setIsSwitching(false);
+        setExpandIntroName(leader.name);
         setActive(leader);
         return;
       }
@@ -218,6 +222,7 @@ export function LeadershipSection() {
         setSwitchFromIndex(
           leadership.people.findIndex((person) => person.name === active.name),
         );
+        setExpandIntroName(null);
         setIsSwitching(true);
         setActive(leader);
         return;
@@ -225,6 +230,7 @@ export function LeadershipSection() {
 
       setIsClosing(false);
       setIsSwitching(false);
+      setExpandIntroName(leader.name);
       setActive(leader);
     },
     [active, isClosing, isSwitching, isLargeScreen, leadership.people],
@@ -233,12 +239,14 @@ export function LeadershipSection() {
   const closeLeader = useCallback(() => {
     if (active && isLargeScreen) {
       setIsSwitching(false);
+      setExpandIntroName(null);
       setIsClosing(true);
       return;
     }
     setActive(null);
     setIsClosing(false);
     setIsSwitching(false);
+    setExpandIntroName(null);
   }, [active, isLargeScreen]);
 
   const handleShrinkComplete = useCallback(() => {
@@ -252,11 +260,22 @@ export function LeadershipSection() {
 
     setActive(null);
     setIsClosing(false);
+    setExpandIntroName(null);
   }, []);
 
   useEffect(() => {
     if (isClosing) shrinkCompleteRef.current = false;
   }, [isClosing]);
+
+  useEffect(() => {
+    if (!expandIntroName || !useInlineDetail) return;
+
+    const introTimer = window.setTimeout(() => {
+      setExpandIntroName(null);
+    }, INLINE_EXPAND_MS + 100);
+
+    return () => window.clearTimeout(introTimer);
+  }, [expandIntroName, useInlineDetail]);
 
   useEffect(() => {
     if (!isClosing || !isLargeScreen || !active) return;
@@ -305,14 +324,16 @@ export function LeadershipSection() {
   useEffect(() => {
     if (!useInlineDetail) return;
 
+    const focusDelay = expandIntroName ? INLINE_EXPAND_MS + 40 : INLINE_SWITCH_MS + 40;
+
     const focusTimer = window.setTimeout(() => {
       inlineCloseRef.current?.focus();
-    }, isSwitching ? INLINE_SWITCH_MS + 40 : INLINE_EXPAND_MS + 40);
+    }, focusDelay);
 
     return () => {
       window.clearTimeout(focusTimer);
     };
-  }, [useInlineDetail, active?.name, isSwitching]);
+  }, [useInlineDetail, active?.name, expandIntroName]);
 
   return (
     <section
@@ -333,6 +354,11 @@ export function LeadershipSection() {
               key={person.name}
               leader={person}
               isExpanded={useInlineDetail && active?.name === person.name}
+              isExpandIntro={
+                useInlineDetail &&
+                active?.name === person.name &&
+                expandIntroName === person.name
+              }
               isShrinking={isClosing && active?.name === person.name}
               isSwitchingIn={isSwitching && useInlineDetail && active?.name === person.name}
               isSwitchingOut={isSwitching && switchFromIndex === index}
