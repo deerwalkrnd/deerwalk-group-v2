@@ -17,8 +17,8 @@ export function DwgFooter() {
             <p className="dwg-footer-blurb">{footerBlurb}</p>
           </div>
 
-          <div className="dwg-footer-col">
-            <h3>Ecosystem</h3>
+           <div className="dwg-footer-col">
+            {/* <h3>Ecosystem</h3>
             <ul>
               {footer.ecosystem.map((link) => (
                 <li key={link.label}>
@@ -32,8 +32,8 @@ export function DwgFooter() {
                   </a>
                 </li>
               ))}
-            </ul>
-          </div>
+            </ul> */}
+          </div> 
 
           <div className="dwg-footer-col">
             <h3>Company</h3>
@@ -50,9 +50,9 @@ export function DwgFooter() {
             <h3>Contact</h3>
             <ul>
               <li>{location}</li>
-              <li>
+              {/* <li>
                 <a href={`mailto:${email}`}>{email}</a>
-              </li>
+              </li> */}
               <li>
                 <a href={`tel:${phone.replace(/\s/g, "")}`}>{phone}</a>
               </li>
@@ -62,7 +62,6 @@ export function DwgFooter() {
 
         <div className="dwg-footer-bottom">
           <p>© {year} {name}. All rights reserved.</p>
-          <p>{location}</p>
         </div>
       </div>
     </footer>

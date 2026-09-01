@@ -37,9 +37,9 @@ export const siteConfig = {
   tagline: "A Nepali family of institutions",
   description:
     "Deerwalk Group brings together schools, a cooperative, a training centre, an institute of technology, and a foundation — independent institutions united by one standard of care.",
-  email: "info@deerwalkgroup.com",
+  email: "",
   phone: "01-4585424",
-  location: "Kathmandu, Nepal",
+  location: "Sifal, Kathmandu, Nepal",
   footerBlurb:
     "A family of Nepali institutions in education, technology, finance, and community development.",
   footerBlurbLines: [
@@ -94,13 +94,13 @@ export const siteConfig = {
       {
         name: "Rudra Pandey",
         role: "Chairperson Emeritus / Founder",
-        image: "/images/dwg/leader-rudra.webp",
+        image: "/images/dwg/leader-rudra.png",
         bio: "Rudra is a pioneer in the software outsourcing industry in Nepal with significant IT experience in the financial service industry. He received his Bachelor's degree in Electrical Engineering from Pakistan and PhD in Economics from Northeastern University, USA. His vision is to create a comprehensive learning in Nepal focusing on technology and its application for the benefit of the country.",
       },
       {
         name: "Hitesh Karki",
         role: "Chairperson",
-        image: "/images/dwg/leader-hitesh.webp",
+        image: "/images/dwg/leader-hitesh.png",
         bio: "Hitesh's core responsibility is to look after the curriculum, ensure timely execution of classes and help connect the students with the happenings of the industry. He completed his Bachelor's degree in Computer Science, from Ferguson College, Pune University, his MBA (Executive) from Kathmandu University (KU) and is currently pursuing his PhD from Kathmandu University.",
       },
       {
