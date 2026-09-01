@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter, Manrope, Roboto } from "next/font/google";
 import "./globals.css";
+import "./leadership-inline.css";
 
 const inter = Inter({
   subsets: ["latin"],

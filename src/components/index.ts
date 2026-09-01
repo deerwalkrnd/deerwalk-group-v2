@@ -6,6 +6,7 @@ export { DwgHero } from "@/components/DwgHero";
 export { FounderMessage } from "@/components/FounderMessage";
 export { InstitutionModal } from "@/components/InstitutionModal";
 export { InstitutionsSection } from "@/components/InstitutionsSection";
+export { LeaderDetailCard } from "@/components/LeaderDetailCard";
 export { LeaderModal } from "@/components/LeaderModal";
 export { LeadershipSection } from "@/components/LeadershipSection";
 export { Logo } from "@/components/Logo";

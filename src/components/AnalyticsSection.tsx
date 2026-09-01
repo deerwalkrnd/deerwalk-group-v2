@@ -10,15 +10,7 @@ export function AnalyticsSection() {
         {analytics.stats.map((stat) => (
           <div key={stat.label} className="analytics-stat">
             <p className="analytics-value">{stat.value}</p>
-            <p className="analytics-label">
-              {stat.labelLines
-                ? stat.labelLines.map((line) => (
-                    <span key={line} className="analytics-label-line">
-                      {line}
-                    </span>
-                  ))
-                : stat.label}
-            </p>
+            <p className="analytics-label">{stat.label}</p>
           </div>
         ))}
       </div>

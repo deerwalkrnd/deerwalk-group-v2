@@ -1,0 +1,376 @@
+/* Desktop leadership card expand/shrink — do not remove.
+   Used by LeadershipSection.tsx classes:
+   has-detail | is-closing | is-switching | is-animating | is-expanded | is-shrinking */
+
+@media (min-width: 1101px) {
+  .leadership-grid-shell {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .leadership-grid {
+    --leader-gap: clamp(1.5rem, 4vw, 3rem);
+    --leader-row-width: min(1224px, 100%);
+    --leader-slot: calc((var(--leader-row-width) - 3 * var(--leader-gap)) / 4);
+    --leader-expanded-width: min(
+      520px,
+      calc((var(--leader-row-width) - 3 * var(--leader-gap)) * 0.58)
+    );
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: var(--leader-gap);
+    width: var(--leader-row-width);
+    max-width: var(--leader-row-width);
+    margin-inline: 0;
+    transition: width var(--leader-duration) var(--leader-ease);
+  }
+
+  .leadership-grid.has-detail:not(.is-closing),
+  .leadership-grid.has-detail.is-switching {
+    max-width: none;
+    width: calc(
+      3 * var(--leader-slot) + 3 * var(--leader-gap) + var(--leader-expanded-width)
+    );
+    align-items: center;
+  }
+
+  .leadership-grid.has-detail.is-closing {
+    max-width: none;
+    width: var(--leader-row-width);
+    transition: width var(--leader-duration-fast) var(--leader-ease-out);
+  }
+
+  .leader-card {
+    flex: 0 0 var(--leader-slot);
+    width: var(--leader-slot);
+    flex-shrink: 0;
+    transition:
+      flex var(--leader-duration) var(--leader-ease),
+      width var(--leader-duration) var(--leader-ease),
+      background-color var(--leader-duration) var(--leader-ease);
+  }
+
+  .leadership-grid.is-switching .leader-card {
+    transition:
+      flex var(--leader-duration) var(--leader-ease),
+      width var(--leader-duration) var(--leader-ease),
+      height var(--leader-duration) var(--leader-ease),
+      max-height var(--leader-duration) var(--leader-ease),
+      background-color var(--leader-duration) var(--leader-ease),
+      box-shadow var(--leader-duration) var(--leader-ease);
+  }
+
+  .leadership-grid.is-switching .leader-card .leader-media {
+    transition:
+      height var(--leader-duration) var(--leader-ease),
+      max-height var(--leader-duration) var(--leader-ease),
+      margin var(--leader-duration) var(--leader-ease);
+  }
+
+  .leadership-grid.is-switching .leader-card.is-switching-out {
+    height: auto;
+    min-height: calc(var(--leader-slot) + 1rem + var(--leader-summary-min));
+    max-height: none;
+    background: transparent;
+    box-shadow: none;
+    overflow: hidden;
+  }
+
+  .leadership-grid.is-switching .leader-card.is-switching-out .leader-media {
+    flex: 0 0 auto;
+    width: 100%;
+    aspect-ratio: 1;
+    height: auto;
+    max-height: 18.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .leadership-grid.is-switching .leader-card.is-switching-out .leader-details {
+    flex: 0 0 auto;
+    min-height: 0;
+    display: block;
+  }
+
+  .leadership-grid.is-switching .leader-card.is-switching-out .leader-summary {
+    min-height: var(--leader-summary-min);
+    padding: 0;
+  }
+
+  .leadership-grid.is-switching .leader-card.is-switching-out .leader-summary h3 {
+    font-family: var(--font-body);
+    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.625rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--color-white);
+  }
+
+  .leadership-grid.is-switching .leader-card.is-switching-out .leader-role {
+    margin-top: 0;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .leadership-grid.is-switching .leader-card.is-switching-out .leader-bio-scroll {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(4px);
+    overflow: hidden;
+    transition:
+      opacity 0.2s var(--leader-ease-out),
+      max-height 0.28s var(--leader-ease-out),
+      transform 0.2s var(--leader-ease-out);
+    transition-delay: 0s;
+  }
+
+  .leadership-grid.is-switching .leader-card.is-switching-out .leader-media-fade {
+    opacity: 0;
+    transition: opacity 0.18s ease;
+  }
+
+  .leadership-grid.is-switching .leader-card.is-switching-in .leader-bio-scroll {
+    transition-delay: 0.14s;
+  }
+
+  .leadership-grid.has-detail.is-closing .leader-card.is-shrinking {
+    flex: 0 0 var(--leader-slot);
+    width: var(--leader-slot);
+    height: auto;
+    min-height: calc(var(--leader-slot) + 1rem + var(--leader-summary-min));
+    max-height: none;
+    background: transparent;
+    cursor: default;
+    overflow: hidden;
+    box-shadow: none;
+    transition:
+      flex var(--leader-duration-fast) var(--leader-ease-out),
+      width var(--leader-duration-fast) var(--leader-ease-out),
+      background-color var(--leader-duration-fast) var(--leader-ease-out),
+      box-shadow var(--leader-duration-fast) var(--leader-ease-out);
+  }
+
+  .leadership-grid.has-detail:not(.is-closing) .leader-card.is-expanded,
+  .leadership-grid.has-detail:has(.leader-card.is-expanded) .leader-card.is-expanded {
+    flex: 0 0 var(--leader-expanded-width);
+    width: var(--leader-expanded-width);
+    flex-shrink: 0;
+  }
+
+  .leadership-grid.has-detail:has(.leader-card.is-expanded)
+    .leader-card:not(.is-expanded) {
+    flex: 0 0 var(--leader-slot);
+    width: var(--leader-slot);
+    flex-shrink: 0;
+  }
+
+  .leader-card .leader-media {
+    width: 100%;
+    max-width: none;
+    transition:
+      height var(--leader-duration) var(--leader-ease),
+      margin var(--leader-duration) var(--leader-ease);
+  }
+
+  .leader-card.is-expanded {
+    height: 594px;
+    max-height: 594px;
+    background: #fff;
+    cursor: default;
+    overflow: hidden;
+    box-shadow:
+      0 24px 56px rgba(4, 21, 34, 0.14),
+      0 8px 20px rgba(4, 21, 34, 0.08);
+    transition:
+      flex var(--leader-duration) var(--leader-ease),
+      width var(--leader-duration) var(--leader-ease),
+      height var(--leader-duration) var(--leader-ease),
+      max-height var(--leader-duration) var(--leader-ease),
+      background-color var(--leader-duration) var(--leader-ease),
+      box-shadow var(--leader-duration) var(--leader-ease);
+  }
+
+  .leader-card.is-expanded .leader-image {
+    transform: scale(1);
+  }
+
+  .leader-card.is-expanded.is-expand-intro .leader-image {
+    animation: leader-image-settle 0.95s var(--leader-ease) both;
+  }
+
+  @keyframes leader-image-settle {
+    from {
+      transform: scale(1.06);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  .leader-card.is-shrinking .leader-media {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: none;
+    aspect-ratio: 1;
+    height: auto;
+    max-height: 18.75rem;
+    margin-bottom: 1rem;
+    transition:
+      height var(--leader-duration-fast) var(--leader-ease-out),
+      max-height var(--leader-duration-fast) var(--leader-ease-out),
+      margin var(--leader-duration-fast) var(--leader-ease-out);
+  }
+
+  .leader-card.is-shrinking .leader-details {
+    flex: 0 0 auto;
+    min-height: 0;
+    display: block;
+  }
+
+  .leader-card.is-shrinking .leader-summary {
+    min-height: var(--leader-summary-min);
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .leader-card.is-shrinking .leader-summary h3 {
+    font-family: var(--font-body);
+    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.625rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--color-white);
+  }
+
+  .leader-card.is-shrinking .leader-role {
+    margin-top: 0;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .leader-card.is-shrinking .leader-bio-scroll {
+    flex: 0 0 auto;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(4px);
+    overflow: hidden;
+    transition:
+      opacity 0.24s var(--leader-ease-out),
+      max-height 0.3s var(--leader-ease-out),
+      transform 0.24s var(--leader-ease-out);
+    transition-delay: 0s;
+  }
+
+  .leader-card.is-shrinking .leader-media-fade {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .leader-card.is-expanded .leader-media {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: none;
+    aspect-ratio: auto;
+    height: 18.75rem;
+    margin-bottom: 0;
+  }
+
+  .leader-card.is-expanded .leader-details {
+    flex: 1 1 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .leader-card.is-expanded .leader-summary {
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: 0;
+    padding: 1.5rem 1.6rem 0;
+    box-sizing: border-box;
+  }
+
+  .leader-card.is-expanded .leader-summary h3 {
+    font-family: var(--font-sans);
+    font-size: clamp(1.26rem, 1.08rem + 0.63vw, 1.665rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: #111827;
+    transition-delay: 0.14s;
+  }
+
+  .leader-card.is-expanded .leader-role {
+    margin-top: 0.4rem;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #1ebba3;
+  
+    transition-delay: 0.2s;
+  }
+
+  .leader-card.is-expanded .leader-bio-scroll {
+    flex: 1 1 0;
+    min-height: 0;
+    max-height: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 0.52s var(--leader-ease-content),
+      transform 0.52s var(--leader-ease-content),
+      max-height var(--leader-duration) var(--leader-ease);
+    transition-delay: 0.36s;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .leader-card.is-expanded .leader-bio-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .leader-card.is-expanded .leader-bio {
+    padding: 0.3rem 1.6rem 1.85rem;
+    text-align: justify;
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leader-card,
+  .leader-modal,
+  .leadership-grid,
+  .leader-card .leader-media,
+  .leader-bio-scroll,
+  .leader-bio,
+  .leader-summary h3,
+  .leader-role,
+  .leader-image,
+  .leader-media-fade,
+  .leader-close {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .leader-card.is-expanded .leader-bio-scroll {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  .leader-card.is-expanded .leader-close {
+    opacity: 1;
+  }
+
+  .leader-card.is-expanded .leader-media-fade {
+    opacity: 1;
+  }
+}
