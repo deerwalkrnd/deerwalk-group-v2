@@ -206,11 +206,22 @@ export const siteConfig = {
         description:
           "Community development and outreach programs across the Deerwalk ecosystem.",
         detail:
-          "Since its establishment in (year), the Deerwalk Foundation has directed support toward schools, students, and communities that would otherwise have limited access to opportunity. Its work spans education funding, community initiatives, and direct support wherever the need is greatest. The principle guiding it has remained constant: opportunity holds more value when it's shared.",
+          "Since its establishment in 2014, the Deerwalk Foundation has directed support toward schools, students, and communities that would otherwise have limited access to opportunity. Its work spans education funding, community initiatives, and direct support wherever the need is greatest. The principle guiding it has remained constant: opportunity holds more value when it's shared.",
         cta: "Visit Page →",
         href: "https://deerwalk.org/",
-        image: "/images/dwg/inst-sifal.webp",
+        image: "/images/dwg/Deerwalk_Foundation.jpg",
       },
+      {
+        id: "learningcenter",
+        name: "Deerwalk Learning Center",
+        description:
+          "Personalized learning experiences for students of all ages.",
+        detail:
+          "Since 2016, Deerwalk Learning Center has offered free, curriculum-aligned video lessons to students from Class 4 through Class 11, giving them access to quality instruction regardless of their school's resources. The lessons are developed in line with the curriculum set by Nepal's Curriculum Development Center, addressing a long-standing gap in access to qualified teaching across the country.",
+        cta: "Visit Site →",
+        href: "https://deerwalk.edu.np/learning-center",
+        image: "/images/dwg/_full.png",
+      }
     ] satisfies Institution[],
   },
   analytics: {

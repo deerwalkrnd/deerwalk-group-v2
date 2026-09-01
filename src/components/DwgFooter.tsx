@@ -1,4 +1,5 @@
 import { siteConfig } from "@/lib/site";
+import { Logo } from "./Logo";
 
 export function DwgFooter() {
   const { footer, footerBlurb, email, phone, location, name } = siteConfig;
@@ -9,9 +10,10 @@ export function DwgFooter() {
       <div className="dwg-footer-inner">
         <div className="dwg-footer-grid">
           <div className="dwg-footer-brand">
-            <a href="/" className="dwg-footer-wordmark">
-              {name}
-            </a>
+            {/* <a href="/" className="dwg-footer-wordmark"> */}
+            <Logo priority className="logo-nav" />
+              {/* {name} */}
+            {/* </a> */}
             <p className="dwg-footer-blurb">{footerBlurb}</p>
           </div>
 

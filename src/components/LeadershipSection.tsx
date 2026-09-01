@@ -41,7 +41,6 @@ type LeaderCardProps = {
   isShrinking: boolean;
   isSwitchingIn: boolean;
   isSwitchingOut: boolean;
-  isAnimating: boolean;
   useInlineExpand: boolean;
   onOpen: (leader: Leader) => void;
   cardRef?: RefObject<HTMLElement | null>;
@@ -55,7 +54,6 @@ function LeaderCard({
   isShrinking,
   isSwitchingIn,
   isSwitchingOut,
-  isAnimating,
   useInlineExpand,
   onOpen,
   cardRef,
@@ -65,19 +63,19 @@ function LeaderCard({
   const closeReportedRef = useRef(false);
 
   const handleActivate = useCallback(() => {
-    if (isAnimating || isExpanded || isShrinking) return;
+    if (isExpanded || isSwitchingIn || isSwitchingOut) return;
     onOpen(leader);
-  }, [isAnimating, isExpanded, isShrinking, leader, onOpen]);
+  }, [isExpanded, isSwitchingIn, isSwitchingOut, leader, onOpen]);
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLElement>) => {
-      if (isAnimating || isExpanded || isShrinking) return;
+      if (isExpanded || isSwitchingIn || isSwitchingOut) return;
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
         onOpen(leader);
       }
     },
-    [isAnimating, isExpanded, isShrinking, leader, onOpen],
+    [isExpanded, isSwitchingIn, isSwitchingOut, leader, onOpen],
   );
 
   const handleCellTransitionEnd = useCallback(
@@ -114,7 +112,7 @@ function LeaderCard({
       aria-labelledby={titleId}
       aria-expanded={isExpanded}
       aria-busy={isShrinking || isSwitchingIn || isSwitchingOut}
-      tabIndex={isExpanded || isShrinking || isAnimating ? -1 : 0}
+      tabIndex={isExpanded || isSwitchingIn || isSwitchingOut ? -1 : 0}
       role="button"
       onClick={handleActivate}
       onKeyDown={handleKeyDown}
@@ -173,6 +171,14 @@ export function LeadershipSection() {
     ? leadership.people.findIndex((person) => person.name === active.name)
     : -1;
 
+  const cancelShrink = useCallback(() => {
+    if (shrinkFallbackRef.current !== null) {
+      window.clearTimeout(shrinkFallbackRef.current);
+      shrinkFallbackRef.current = null;
+    }
+    shrinkCompleteRef.current = true;
+  }, []);
+
   const openLeader = useCallback(
     (leader: Leader) => {
       if (!isLargeScreen) {
@@ -183,13 +189,32 @@ export function LeadershipSection() {
         return;
       }
 
-      if (isClosing || isSwitching) return;
+      if (isClosing) {
+        cancelShrink();
+        if (active?.name === leader.name) {
+          setIsClosing(false);
+          return;
+        }
+        setIsClosing(false);
+        setSwitchFromIndex(activeIndex);
+        setExpandIntroName(null);
+        setIsSwitching(true);
+        setActive(leader);
+        return;
+      }
+
+      if (isSwitching) {
+        if (active?.name === leader.name) return;
+        setSwitchFromIndex(activeIndex);
+        setExpandIntroName(null);
+        setActive(leader);
+        return;
+      }
+
       if (active?.name === leader.name) return;
 
       if (active) {
-        setSwitchFromIndex(
-          leadership.people.findIndex((person) => person.name === active.name),
-        );
+        setSwitchFromIndex(activeIndex);
         setExpandIntroName(null);
         setIsSwitching(true);
         setActive(leader);
@@ -201,7 +226,14 @@ export function LeadershipSection() {
       setExpandIntroName(leader.name);
       setActive(leader);
     },
-    [active, isClosing, isSwitching, isLargeScreen, leadership.people],
+    [
+      active,
+      activeIndex,
+      cancelShrink,
+      isClosing,
+      isSwitching,
+      isLargeScreen,
+    ],
   );
 
   const closeLeader = useCallback(() => {
@@ -290,7 +322,7 @@ export function LeadershipSection() {
   }, [active, closeLeader, isLargeScreen]);
 
   useEffect(() => {
-    if (!useInlineDetail || isAnimating) return;
+    if (!isLargeScreen || !active || isClosing) return;
 
     const onPointerDown = (event: PointerEvent) => {
       const target = event.target;
@@ -302,7 +334,7 @@ export function LeadershipSection() {
 
     document.addEventListener("pointerdown", onPointerDown);
     return () => document.removeEventListener("pointerdown", onPointerDown);
-  }, [closeLeader, isAnimating, useInlineDetail]);
+  }, [active, closeLeader, isClosing, isLargeScreen]);
 
   return (
     <section
@@ -331,7 +363,6 @@ export function LeadershipSection() {
               isShrinking={isClosing && active?.name === person.name}
               isSwitchingIn={isSwitching && useInlineDetail && active?.name === person.name}
               isSwitchingOut={isSwitching && switchFromIndex === index}
-              isAnimating={isAnimating}
               useInlineExpand={isLargeScreen}
               onOpen={openLeader}
               cardRef={

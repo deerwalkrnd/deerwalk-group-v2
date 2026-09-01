@@ -52,10 +52,6 @@
       background-color var(--leader-duration) var(--leader-ease);
   }
 
-  .leadership-grid.is-animating .leader-card {
-    pointer-events: none;
-  }
-
   .leadership-grid.is-switching .leader-card {
     transition:
       flex var(--leader-duration) var(--leader-ease),
@@ -141,7 +137,6 @@
   }
 
   .leadership-grid.has-detail.is-closing .leader-card.is-shrinking {
-    pointer-events: none;
     flex: 0 0 var(--leader-slot);
     width: var(--leader-slot);
     height: auto;
@@ -302,7 +297,7 @@
 
   .leader-card.is-expanded .leader-summary h3 {
     font-family: var(--font-sans);
-    font-size: clamp(1.4rem, 1.2rem + 0.7vw, 1.85rem);
+    font-size: clamp(1.26rem, 1.08rem + 0.63vw, 1.665rem);
     font-weight: 700;
     line-height: 1.25;
     color: #111827;
@@ -312,10 +307,11 @@
   .leader-card.is-expanded .leader-role {
     margin-top: 0.4rem;
     font-family: var(--font-sans);
-    font-size: 0.95rem;
-    font-weight: 700;
+    font-size: 0.8rem;
+    font-weight: 600;
     line-height: 1.4;
     color: #1ebba3;
+  
     transition-delay: 0.2s;
   }
 
@@ -343,6 +339,8 @@
 
   .leader-card.is-expanded .leader-bio {
     padding: 1rem 1.6rem 1.85rem;
+    text-align: justify;
+    font-size: 16px;
   }
 }
 
