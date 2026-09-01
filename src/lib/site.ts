@@ -206,7 +206,7 @@ export const siteConfig = {
         detail:
           "Deerwalk Foundation began as the outreach arm of the ecosystem — extending opportunity beyond campus gates to communities that needed support. Growth here was never only about programs on a calendar. It was about the philosophy behind service. Access to learning. Dignity in partnership. People who leave each initiative with more capability than before. That mission is renewed every year, when Foundation projects, scholarships, and local collaborations ask Deerwalk to prove that education and community care still move together.",
         cta: "Visit Page →",
-        href: "#",
+        href: "https://deerwalk.org/",
         image: "/images/dwg/inst-sifal.webp",
       },
     ] satisfies Institution[],

@@ -15,6 +15,7 @@ import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { siteConfig, type Leader } from "@/lib/site";
 
 const LG_BREAKPOINT = 1101;
+const INLINE_TRANSITION_MS = 500;
 
 function useMinWidth(minWidth: number) {
   const [matches, setMatches] = useState(false);
@@ -34,6 +35,8 @@ function useMinWidth(minWidth: number) {
 type LeaderCardProps = {
   leader: Leader;
   isExpanded: boolean;
+  isShrinking: boolean;
+  isAnimating: boolean;
   useInlineExpand: boolean;
   onOpen: (leader: Leader) => void;
   onClose: () => void;
@@ -44,6 +47,8 @@ type LeaderCardProps = {
 function LeaderCard({
   leader,
   isExpanded,
+  isShrinking,
+  isAnimating,
   useInlineExpand,
   onOpen,
   onClose,
@@ -54,29 +59,31 @@ function LeaderCard({
   const closeReportedRef = useRef(false);
 
   const handleActivate = useCallback(() => {
-    if (!isExpanded) onOpen(leader);
-  }, [isExpanded, leader, onOpen]);
+    if (isAnimating || isExpanded || isShrinking) return;
+    onOpen(leader);
+  }, [isAnimating, isExpanded, isShrinking, leader, onOpen]);
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLElement>) => {
-      if (isExpanded) return;
+      if (isAnimating || isExpanded || isShrinking) return;
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
         onOpen(leader);
       }
     },
-    [isExpanded, leader, onOpen],
+    [isAnimating, isExpanded, isShrinking, leader, onOpen],
   );
 
   const handleCellTransitionEnd = useCallback(
     (event: TransitionEvent<HTMLElement>) => {
-      if (!useInlineExpand || isExpanded) return;
+      if (!useInlineExpand || !isShrinking) return;
       if (event.target !== event.currentTarget) return;
       if (
         event.propertyName !== "flex-basis" &&
         event.propertyName !== "flex" &&
         event.propertyName !== "flex-grow" &&
-        event.propertyName !== "width"
+        event.propertyName !== "width" &&
+        event.propertyName !== "height"
       ) {
         return;
       }
@@ -85,19 +92,22 @@ function LeaderCard({
         onShrinkComplete?.();
       }
     },
-    [isExpanded, onShrinkComplete, useInlineExpand],
+    [isShrinking, onShrinkComplete, useInlineExpand],
   );
 
   useEffect(() => {
-    if (isExpanded) closeReportedRef.current = false;
-  }, [isExpanded]);
+    if (isExpanded || isShrinking) closeReportedRef.current = false;
+  }, [isExpanded, isShrinking]);
+
+  const showExpandedChrome = isExpanded || isShrinking;
 
   return (
     <article
-      className={`leader-card${isExpanded ? " is-expanded" : ""}`}
+      className={`leader-card${isExpanded ? " is-expanded" : ""}${isShrinking ? " is-shrinking" : ""}`}
       aria-labelledby={titleId}
       aria-expanded={isExpanded}
-      tabIndex={isExpanded ? -1 : 0}
+      aria-busy={isShrinking}
+      tabIndex={isExpanded || isShrinking || isAnimating ? -1 : 0}
       role="button"
       onClick={handleActivate}
       onKeyDown={handleKeyDown}
@@ -121,36 +131,38 @@ function LeaderCard({
               : undefined
           }
         />
-        {isExpanded ? (
+        {showExpandedChrome ? (
           <>
             <div className="leader-media-fade" aria-hidden="true" />
-            <button
-              ref={closeRef}
-              type="button"
-              className="leader-close"
-              aria-label="Close"
-              onClick={(event) => {
-                event.stopPropagation();
-                onClose();
-              }}
-            >
-              <svg
-                className="leader-close-icon"
-                viewBox="0 0 24 24"
-                width="16"
-                height="16"
-                aria-hidden="true"
-                focusable="false"
+            {isExpanded ? (
+              <button
+                ref={closeRef}
+                type="button"
+                className="leader-close"
+                aria-label="Close"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onClose();
+                }}
               >
-                <path
-                  d="M5.5 5.5l13 13M18.5 5.5l-13 13"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.75"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </button>
+                <svg
+                  className="leader-close-icon"
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M5.5 5.5l13 13M18.5 5.5l-13 13"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.75"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+            ) : null}
           </>
         ) : null}
       </div>
@@ -170,49 +182,125 @@ function LeaderCard({
 export function LeadershipSection() {
   const { leadership } = siteConfig;
   const [active, setActive] = useState<Leader | null>(null);
+  const [pendingLeader, setPendingLeader] = useState<Leader | null>(null);
   const [isClosing, setIsClosing] = useState(false);
   const isLargeScreen = useMinWidth(LG_BREAKPOINT);
   const inlineCloseRef = useRef<HTMLButtonElement>(null);
+  const shrinkFallbackRef = useRef<number | null>(null);
+  const shrinkCompleteRef = useRef(false);
+  const pendingLeaderRef = useRef<Leader | null>(null);
   const useInlineDetail = Boolean(active && isLargeScreen && !isClosing);
+  const isAnimating = Boolean(isLargeScreen && isClosing);
   const activeIndex = active
     ? leadership.people.findIndex((person) => person.name === active.name)
     : -1;
 
-  const openLeader = useCallback((leader: Leader) => {
-    setIsClosing(false);
-    setActive(leader);
-  }, []);
+  pendingLeaderRef.current = pendingLeader;
+
+  const openLeader = useCallback(
+    (leader: Leader) => {
+      if (!isLargeScreen) {
+        setPendingLeader(null);
+        setIsClosing(false);
+        setActive(leader);
+        return;
+      }
+
+      if (isClosing) {
+        if (pendingLeader?.name !== leader.name) {
+          setPendingLeader(leader);
+        }
+        return;
+      }
+
+      if (active?.name === leader.name) return;
+
+      if (active) {
+        setPendingLeader(leader);
+        setIsClosing(true);
+        return;
+      }
+
+      setPendingLeader(null);
+      setIsClosing(false);
+      setActive(leader);
+    },
+    [active, isClosing, isLargeScreen, pendingLeader],
+  );
 
   const closeLeader = useCallback(() => {
     if (active && isLargeScreen) {
+      setPendingLeader(null);
       setIsClosing(true);
       return;
     }
     setActive(null);
+    setPendingLeader(null);
+    setIsClosing(false);
   }, [active, isLargeScreen]);
 
-  const finishClose = useCallback(() => {
+  const handleShrinkComplete = useCallback(() => {
+    if (shrinkCompleteRef.current) return;
+    shrinkCompleteRef.current = true;
+
+    if (shrinkFallbackRef.current !== null) {
+      window.clearTimeout(shrinkFallbackRef.current);
+      shrinkFallbackRef.current = null;
+    }
+
+    if (pendingLeaderRef.current) {
+      setActive(pendingLeaderRef.current);
+      setPendingLeader(null);
+      setIsClosing(false);
+      return;
+    }
+
     setActive(null);
     setIsClosing(false);
   }, []);
 
   useEffect(() => {
-    if (!useInlineDetail) return;
+    if (isClosing) shrinkCompleteRef.current = false;
+  }, [isClosing]);
 
-    const focusTimer = window.setTimeout(() => {
-      inlineCloseRef.current?.focus();
-    }, 520);
+  useEffect(() => {
+    if (!isClosing || !isLargeScreen || !active) return;
+
+    shrinkFallbackRef.current = window.setTimeout(() => {
+      shrinkFallbackRef.current = null;
+      handleShrinkComplete();
+    }, INLINE_TRANSITION_MS + 80);
+
+    return () => {
+      if (shrinkFallbackRef.current !== null) {
+        window.clearTimeout(shrinkFallbackRef.current);
+        shrinkFallbackRef.current = null;
+      }
+    };
+  }, [active, handleShrinkComplete, isClosing, isLargeScreen]);
+
+  useEffect(() => {
+    if (!active || !isLargeScreen) return;
 
     const onKey = (event: globalThis.KeyboardEvent) => {
       if (event.key === "Escape") closeLeader();
     };
 
     window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [active, closeLeader, isLargeScreen]);
+
+  useEffect(() => {
+    if (!useInlineDetail) return;
+
+    const focusTimer = window.setTimeout(() => {
+      inlineCloseRef.current?.focus();
+    }, INLINE_TRANSITION_MS + 20);
+
     return () => {
       window.clearTimeout(focusTimer);
-      window.removeEventListener("keydown", onKey);
     };
-  }, [useInlineDetail, closeLeader, active?.name]);
+  }, [useInlineDetail, active?.name]);
 
   return (
     <section
@@ -224,23 +312,27 @@ export function LeadershipSection() {
         <h2 id="leadership-heading">{leadership.title}</h2>
         <p className="leadership-eyebrow">{leadership.eyebrow}</p>
       </div>
-      <div
-        className={`leadership-grid${active && isLargeScreen ? " has-detail" : ""}${isClosing ? " is-closing" : ""}`}
-      >
-        {leadership.people.map((person, index) => (
-          <LeaderCard
-            key={person.name}
-            leader={person}
-            isExpanded={useInlineDetail && active?.name === person.name}
-            useInlineExpand={isLargeScreen}
-            onOpen={openLeader}
-            onClose={closeLeader}
-            closeRef={activeIndex === index ? inlineCloseRef : undefined}
-            onShrinkComplete={
-              isClosing && activeIndex === index ? finishClose : undefined
-            }
-          />
-        ))}
+      <div className="leadership-grid-shell">
+        <div
+          className={`leadership-grid${active && isLargeScreen ? " has-detail" : ""}${isClosing ? " is-closing" : ""}${isAnimating ? " is-animating" : ""}`}
+        >
+          {leadership.people.map((person, index) => (
+            <LeaderCard
+              key={person.name}
+              leader={person}
+              isExpanded={useInlineDetail && active?.name === person.name}
+              isShrinking={isClosing && active?.name === person.name}
+              isAnimating={isAnimating}
+              useInlineExpand={isLargeScreen}
+              onOpen={openLeader}
+              onClose={closeLeader}
+              closeRef={activeIndex === index ? inlineCloseRef : undefined}
+              onShrinkComplete={
+                isClosing && activeIndex === index ? handleShrinkComplete : undefined
+              }
+            />
+          ))}
+        </div>
       </div>
       <p className="leadership-note">{leadership.note}</p>
       {!isLargeScreen && active ? (
