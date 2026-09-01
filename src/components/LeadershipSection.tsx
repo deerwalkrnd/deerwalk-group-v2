@@ -44,8 +44,7 @@ type LeaderCardProps = {
   isAnimating: boolean;
   useInlineExpand: boolean;
   onOpen: (leader: Leader) => void;
-  onClose: () => void;
-  closeRef?: RefObject<HTMLButtonElement | null>;
+  cardRef?: RefObject<HTMLElement | null>;
   onShrinkComplete?: () => void;
 };
 
@@ -59,8 +58,7 @@ function LeaderCard({
   isAnimating,
   useInlineExpand,
   onOpen,
-  onClose,
-  closeRef,
+  cardRef,
   onShrinkComplete,
 }: LeaderCardProps) {
   const titleId = useId();
@@ -111,6 +109,7 @@ function LeaderCard({
 
   return (
     <article
+      ref={cardRef}
       className={`leader-card${isExpanded ? " is-expanded" : ""}${isExpandIntro ? " is-expand-intro" : ""}${isShrinking ? " is-shrinking" : ""}${isSwitchingIn ? " is-switching-in" : ""}${isSwitchingOut ? " is-switching-out" : ""}`}
       aria-labelledby={titleId}
       aria-expanded={isExpanded}
@@ -140,38 +139,7 @@ function LeaderCard({
           }
         />
         {showExpandedChrome ? (
-          <>
-            <div className="leader-media-fade" aria-hidden="true" />
-            {isExpanded ? (
-              <button
-                ref={closeRef}
-                type="button"
-                className="leader-close"
-                aria-label="Close"
-                onClick={(event) => {
-                  event.stopPropagation();
-                  onClose();
-                }}
-              >
-                <svg
-                  className="leader-close-icon"
-                  viewBox="0 0 24 24"
-                  width="16"
-                  height="16"
-                  aria-hidden="true"
-                  focusable="false"
-                >
-                  <path
-                    d="M5.5 5.5l13 13M18.5 5.5l-13 13"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.75"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </button>
-            ) : null}
-          </>
+          <div className="leader-media-fade" aria-hidden="true" />
         ) : null}
       </div>
       <div className="leader-details">
@@ -195,7 +163,7 @@ export function LeadershipSection() {
   const [switchFromIndex, setSwitchFromIndex] = useState(-1);
   const [expandIntroName, setExpandIntroName] = useState<string | null>(null);
   const isLargeScreen = useMinWidth(LG_BREAKPOINT);
-  const inlineCloseRef = useRef<HTMLButtonElement>(null);
+  const expandedCardRef = useRef<HTMLElement>(null);
   const shrinkFallbackRef = useRef<number | null>(null);
   const switchTimerRef = useRef<number | null>(null);
   const shrinkCompleteRef = useRef(false);
@@ -322,18 +290,19 @@ export function LeadershipSection() {
   }, [active, closeLeader, isLargeScreen]);
 
   useEffect(() => {
-    if (!useInlineDetail) return;
+    if (!useInlineDetail || isAnimating) return;
 
-    const focusDelay = expandIntroName ? INLINE_EXPAND_MS + 40 : INLINE_SWITCH_MS + 40;
-
-    const focusTimer = window.setTimeout(() => {
-      inlineCloseRef.current?.focus();
-    }, focusDelay);
-
-    return () => {
-      window.clearTimeout(focusTimer);
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (expandedCardRef.current?.contains(target)) return;
+      if (target instanceof Element && target.closest(".leader-card")) return;
+      closeLeader();
     };
-  }, [useInlineDetail, active?.name, expandIntroName]);
+
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [closeLeader, isAnimating, useInlineDetail]);
 
   return (
     <section
@@ -365,8 +334,11 @@ export function LeadershipSection() {
               isAnimating={isAnimating}
               useInlineExpand={isLargeScreen}
               onOpen={openLeader}
-              onClose={closeLeader}
-              closeRef={activeIndex === index ? inlineCloseRef : undefined}
+              cardRef={
+                useInlineDetail && active?.name === person.name
+                  ? expandedCardRef
+                  : undefined
+              }
               onShrinkComplete={
                 isClosing && activeIndex === index ? handleShrinkComplete : undefined
               }

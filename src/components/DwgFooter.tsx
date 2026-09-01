@@ -2,6 +2,7 @@ import { siteConfig } from "@/lib/site";
 
 export function DwgFooter() {
   const { footer, footerBlurb, email, phone, location, name } = siteConfig;
+  const year = new Date().getFullYear();
 
   return (
     <footer className="dwg-footer" id="contact">
@@ -58,7 +59,7 @@ export function DwgFooter() {
         </div>
 
         <div className="dwg-footer-bottom">
-          <p>© 2026 {name}. All rights reserved.</p>
+          <p>© {year} {name}. All rights reserved.</p>
           <p>{location}</p>
         </div>
       </div>

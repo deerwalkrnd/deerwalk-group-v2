@@ -1428,18 +1428,12 @@ body.nav-open {
   margin: 8px 0 0;
   font-family: var(--font-sans);
   font-weight: 400;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 18.2px;
   color: #fff;
+  white-space: nowrap;
 }
 
-.analytics-stat:first-child .analytics-label {
-  font-size: 16px;
-}
-
-.analytics-label-line {
-  display: block;
-}
 
 /* —— Footer —— */
 .dwg-footer {
@@ -1667,9 +1661,8 @@ body.nav-open {
     line-height: 1.3;
   }
 
-  .analytics-label,
-  .analytics-stat:first-child .analytics-label {
-    font-size: clamp(0.9rem, 0.85rem + 0.3vw, 1.1rem);
+  .analytics-label {
+    font-size: 16px;
     line-height: 1.25;
   }
 }

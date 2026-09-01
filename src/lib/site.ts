@@ -29,7 +29,6 @@ export type Institution = {
 export type Stat = {
   value: string;
   label: string;
-  labelLines?: string[];
 };
 
 export const siteConfig = {
@@ -38,7 +37,7 @@ export const siteConfig = {
   description:
     "Deerwalk Group brings together schools, a cooperative, a training centre, an institute of technology, and a foundation — independent institutions united by one standard of care.",
   email: "info@deerwalkgroup.com",
-  phone: "+977 1 000 0000",
+  phone: "01-4585424",
   location: "Kathmandu, Nepal",
   footerBlurb:
     "A family of Nepali institutions in education, technology, finance, and community development.",
@@ -129,7 +128,7 @@ export const siteConfig = {
         description:
           "Bachelor's degree programs in computer science & applications — the group's flagship institution.",
         detail:
-          "In 2011, Deerwalk Institute of Technology began with just one course, BSc. CSIT. Within five years, it had added BCA, affiliated with Tribhuvan University, and grown into one of Nepal's leading IT colleges. Its foundation was never really about the courses on offer. It was about the philosophy behind them. Strong theory. Real practical skill. Students who leave capable of more than passing an exam. That philosophy is still tested every year, when eighth semester students step into internships with companies that share DWIT's own campus.",
+          "Since its founding in 2011 with BSc. CSIT, and the addition of BCA in 2016 in affiliation with Tribhuvan University, Deerwalk Institute of Technology has grown into one of Nepal's leading IT colleges. Every student completes a mandatory internship in their eighth semester, often with companies based on the same campus, built on the college's founding principles of theoretical exposure, practical experience, and personality development.",
         cta: "Visit DWIT site →",
         href: "https://deerwalk.edu.np/DWIT/",
         image: "/images/dwg/inst-dwit.webp",
@@ -140,7 +139,7 @@ export const siteConfig = {
         description:
           "Foundational schooling — the first stop on the Deerwalk path.",
         detail:
-          "Deerwalk Pokhara School carries the same Deerwalk standard into the lakeside city — read deeply, write clearly, and think logically from the earliest years. The campus was never meant to be only about grades on a report card. It was about the habits behind them. Curiosity in the classroom. Confidence outside it. Students who leave ready for more than the next exam. That promise is renewed every term, when classrooms, clubs, and community work ask young learners to practice what Deerwalk believes every day.",
+          "Since opening in 2025, Deerwalk Pokhara School has brought Deerwalk's Read, Write, Code philosophy to students across Kaski, with dedicated courses in Sanskrit, coding, and public speaking, and reading instruction in both English and Nepali from the earliest grades, across both Junior and Senior levels.",
         cta: "Visit DPS site →",
         href: "https://www.deerwalk.edu.np/pokhara-school",
         image: "/images/dwg/inst-pokhara.webp",
@@ -151,7 +150,7 @@ export const siteConfig = {
         description:
           "Quality school education in Dhading, the founder's hometown.",
         detail:
-          "Deerwalk Dhading School opened in Rudra Pandey's hometown with a simple conviction: quality education should not stop at the big cities. What began as a local commitment quickly became a full Deerwalk campus. Its foundation was never only about buildings and textbooks. It was about the philosophy behind them. Strong academics. Real character. Students who leave capable of shaping their own future. That idea is proven each year, when Dhading families trust the school to raise curious minds with the same rigor found in Kathmandu.",
+          "Since opening in 2024, Deerwalk Dhading School has brought the same Read, Write, Code philosophy and Junior-Senior structure found across every Deerwalk school to Dhading, the home district of founder Rudra Pandey. Its presence there reflects Deerwalk's long-standing belief that quality education shouldn't be limited to major cities.",
         cta: "Visit DDS site →",
         href: "https://deerwalk.edu.np/dhading-school",
         image: "/images/dwg/inst-dhading.webp",
@@ -162,7 +161,7 @@ export const siteConfig = {
         description:
           "Holistic secondary education preparing students for higher study.",
         detail:
-          "Deerwalk Sifal School began with a distinctive philosophy: Read. Write. Code. From the first cohorts onward, the school paired academic rigor with character and all-round growth. Its foundation was never really about covering a syllabus alone. It was about the habits behind learning. Deep reading. Clear writing. Logical thinking. Students who leave ready for college and for life beyond exams. That philosophy is tested every year, when Sifal students take on projects, presentations, and pathways that ask them to show what they can build.",
+            "Since 2016, Deerwalk Sifal School has educated students from elementary through Plus Two under its guiding philosophy: Read, Write, Code. The approach treats reading, writing, and coding as core skills on equal footing with any subject, building students who can think critically, communicate clearly, and solve problems from an early age.",
         cta: "Visit DSS site →",
         href: "https://deerwalk.edu.np/sifal-school",
         image: "/images/dwg/inst-sifal.webp",
@@ -173,7 +172,7 @@ export const siteConfig = {
         description:
           "Secondary education with a focus on discipline and character.",
         detail:
-          "Deerwalk Bharatpur School extended the Deerwalk path into Chitwan with the same quiet ambition that shaped every other campus. Growth here was never only about opening another location on a map. It was about the philosophy behind the work. Discipline in study. Strength of character. Students who leave capable of more than scoring well on paper. That standard is renewed each year, when Bharatpur classrooms, sports fields, and community moments ask learners to practice curiosity, clarity, and responsibility together.",
+          "Since opening in 2025, Deerwalk Bharatpur School has extended Deerwalk's Read, Write, Code philosophy to students across Chitwan, structured across Junior and Senior levels. Its curriculum connects classroom learning with real-world application, marking Deerwalk's continued expansion of quality education beyond Kathmandu.",
         cta: "Visit DBS site →",
         href: "https://deerwalk.edu.np/bharatpur-school",
         image: "/images/dwg/inst-bharatpur.webp",
@@ -184,7 +183,7 @@ export const siteConfig = {
         description:
           "Professional and corporate upskilling — the group's fastest route to employment.",
         detail:
-          "Deerwalk Training Center began as the group's fastest bridge from learning to work — practical courses for students and professionals who needed skills the market would recognize. Its foundation was never really about certificates on a wall. It was about the philosophy behind them. Strong fundamentals. Real applied practice. Learners who leave capable of more than finishing a module. That promise is tested every cohort, when trainees move into projects, placements, and workplaces that expect Deerwalk-ready confidence from day one.",
+          "In more than a decade since its founding in 2011, Deerwalk Training Center has trained over 5,000 students across 135+ courses in software, data, design, and other industries. Every program pairs hands-on projects with mentors currently working in the field, built on the principle that a course should prepare someone for the job waiting after it.",
         cta: "Visit DTC site →",
         href: "https://deerwalktrainingcenter.com/",
         image: "/images/dwg/inst-training.webp",
@@ -195,7 +194,7 @@ export const siteConfig = {
         description:
           "Member-owned cooperative supporting families across the Deerwalk community.",
         detail:
-          "Deerwalk Coop grew alongside the campuses as a member-owned cooperative for families across the Deerwalk community. What began as mutual support became a trusted network for shared growth. Its foundation was never really about transactions alone. It was about the philosophy behind belonging. Shared responsibility. Practical care. Members who leave each season stronger than they arrived. That idea is still proven every year, when households, students, and partners rely on the Coop to connect education, livelihood, and community under one roof.",
+          "Since opening in 2025, Deerwalk Coop has become a regular stop for students looking for a break between classes. It offers a café-style menu of drinks, bakery items, and ice cream, alongside a retail selection of books, stationery, and Deerwalk merchandise, including caps, bottles, and candles, all in one space built around campus life.",
         cta: "Visit Socials →",
         linkLabel: "Visit Socials",
         href: "https://www.instagram.com/deerwalk.coop/",
@@ -207,7 +206,7 @@ export const siteConfig = {
         description:
           "Community development and outreach programs across the Deerwalk ecosystem.",
         detail:
-          "Deerwalk Foundation began as the outreach arm of the ecosystem — extending opportunity beyond campus gates to communities that needed support. Growth here was never only about programs on a calendar. It was about the philosophy behind service. Access to learning. Dignity in partnership. People who leave each initiative with more capability than before. That mission is renewed every year, when Foundation projects, scholarships, and local collaborations ask Deerwalk to prove that education and community care still move together.",
+          "Since its establishment in (year), the Deerwalk Foundation has directed support toward schools, students, and communities that would otherwise have limited access to opportunity. Its work spans education funding, community initiatives, and direct support wherever the need is greatest. The principle guiding it has remained constant: opportunity holds more value when it's shared.",
         cta: "Visit Page →",
         href: "https://deerwalk.org/",
         image: "/images/dwg/inst-sifal.webp",
@@ -219,11 +218,7 @@ export const siteConfig = {
     stats: [
       { value: "20+", label: "Years of operation" },
       { value: "8", label: "Institutions, one group" },
-      {
-        value: "10,000+",
-        label: "Students & members served",
-        labelLines: ["Students & members", "served"],
-      },
+      { value: "10,000+", label: "Students & members served" },
       { value: "500+", label: "Faculty & staff" },
     ] satisfies Stat[],
   },
@@ -233,7 +228,7 @@ export const siteConfig = {
       { href: "#", label: "Deerwalk Cooperative" },
       { href: "https://deerwalktrainingcenter.com/", label: "Training Center" },
       { href: "https://deerwalk.edu.np/DWIT/", label: "DWIT" },
-      { href: "#", label: "Foundation" },
+      { href: "https://deerwalk.org/", label: "Foundation" },
     ] satisfies NavLink[],
     company: [
       { href: "/", label: "About" },
