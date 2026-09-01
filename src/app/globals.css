@@ -1054,7 +1054,7 @@ body.nav-open {
 }
 
 .leader-modal-bio {
-  margin: 1rem 0 0;
+  margin: 0.4rem 0 0;
   font-family: var(--font-body);
   font-size: 0.98rem;
   font-weight: 400;

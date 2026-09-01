@@ -142,7 +142,7 @@ export const siteConfig = {
           "Since opening in 2025, Deerwalk Pokhara School has brought Deerwalk's Read, Write, Code philosophy to students across Kaski, with dedicated courses in Sanskrit, coding, and public speaking, and reading instruction in both English and Nepali from the earliest grades, across both Junior and Senior levels.",
         cta: "Visit DPS site →",
         href: "https://www.deerwalk.edu.np/pokhara-school",
-        image: "/images/dwg/inst-pokhara.webp",
+        image: "/images/dwg/DPS.jpg",
       },
       {
         id: "dds",
@@ -175,7 +175,7 @@ export const siteConfig = {
           "Since opening in 2025, Deerwalk Bharatpur School has extended Deerwalk's Read, Write, Code philosophy to students across Chitwan, structured across Junior and Senior levels. Its curriculum connects classroom learning with real-world application, marking Deerwalk's continued expansion of quality education beyond Kathmandu.",
         cta: "Visit DBS site →",
         href: "https://deerwalk.edu.np/bharatpur-school",
-        image: "/images/dwg/inst-bharatpur.webp",
+        image: "/images/dwg/DBS.jpg",
       },
       {
         id: "learning-center",
@@ -186,7 +186,7 @@ export const siteConfig = {
           "In more than a decade since its founding in 2011, Deerwalk Training Center has trained over 5,000 students across 135+ courses in software, data, design, and other industries. Every program pairs hands-on projects with mentors currently working in the field, built on the principle that a course should prepare someone for the job waiting after it.",
         cta: "Visit DTC site →",
         href: "https://deerwalktrainingcenter.com/",
-        image: "/images/dwg/inst-training.webp",
+        image: "/images/dwg/inst-training.png",
       },
       {
         id: "coop",
@@ -220,7 +220,7 @@ export const siteConfig = {
           "Since 2016, Deerwalk Learning Center has offered free, curriculum-aligned video lessons to students from Class 4 through Class 11, giving them access to quality instruction regardless of their school's resources. The lessons are developed in line with the curriculum set by Nepal's Curriculum Development Center, addressing a long-standing gap in access to qualified teaching across the country.",
         cta: "Visit Site →",
         href: "https://deerwalk.edu.np/learning-center",
-        image: "/images/dwg/_full.png",
+        image: "/images/dwg/LearningCenter.jpg",
       }
     ] satisfies Institution[],
   },
@@ -236,7 +236,6 @@ export const siteConfig = {
   footer: {
     ecosystem: [
       { href: "https://deerwalk.edu.np/sifal-school", label: "Schools" },
-      { href: "#", label: "Deerwalk Cooperative" },
       { href: "https://deerwalktrainingcenter.com/", label: "Training Center" },
       { href: "https://deerwalk.edu.np/DWIT/", label: "DWIT" },
       { href: "https://deerwalk.org/", label: "Foundation" },
@@ -245,8 +244,7 @@ export const siteConfig = {
       { href: "/", label: "About" },
       { href: "/our-story/", label: "Our Story" },
       { href: "/#leadership", label: "Leadership" },
-      { href: "#", label: "Careers" },
-      { href: "/#contact", label: "Contact" },
+
     ] satisfies NavLink[],
   },
   logo: "/images/dwg/logo.webp",
