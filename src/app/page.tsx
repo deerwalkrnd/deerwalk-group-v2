@@ -14,6 +14,9 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: `${siteConfig.name} | Learning, technology, and community`,
   description: siteConfig.description,
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function HomePage() {
