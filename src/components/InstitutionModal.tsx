@@ -115,7 +115,7 @@ export function InstitutionModal({ item, onClose }: InstitutionModalProps) {
               ? { target: "_blank", rel: "noreferrer" }
               : {})}
           >
-            Visit the Website
+            {item.linkLabel ?? "Visit the Website"}
           </a>
         </div>
       </div>

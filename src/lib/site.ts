@@ -20,6 +20,8 @@ export type Institution = {
   /** Longer copy shown in the institution popup */
   detail: string;
   cta: string;
+  /** Modal link label; defaults to "Visit the Website" */
+  linkLabel?: string;
   href: string;
   image: string;
 };
@@ -194,8 +196,9 @@ export const siteConfig = {
           "Member-owned cooperative supporting families across the Deerwalk community.",
         detail:
           "Deerwalk Coop grew alongside the campuses as a member-owned cooperative for families across the Deerwalk community. What began as mutual support became a trusted network for shared growth. Its foundation was never really about transactions alone. It was about the philosophy behind belonging. Shared responsibility. Practical care. Members who leave each season stronger than they arrived. That idea is still proven every year, when households, students, and partners rely on the Coop to connect education, livelihood, and community under one roof.",
-        cta: "Visit Page →",
-        href: "#",
+        cta: "Visit Socials →",
+        linkLabel: "Visit Socials",
+        href: "https://www.instagram.com/deerwalk.coop/",
         image: "/images/dwg/DeerwalkCOUP.png",
       },
       {

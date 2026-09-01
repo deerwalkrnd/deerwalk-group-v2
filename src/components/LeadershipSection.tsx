@@ -15,7 +15,9 @@ import { ResponsiveImage } from "@/components/ResponsiveImage";
 import { siteConfig, type Leader } from "@/lib/site";
 
 const LG_BREAKPOINT = 1101;
-const INLINE_TRANSITION_MS = 500;
+const INLINE_EXPAND_MS = 680;
+const INLINE_SHRINK_MS = 500;
+const INLINE_SWITCH_MS = 680;
 
 function useMinWidth(minWidth: number) {
   const [matches, setMatches] = useState(false);
@@ -36,6 +38,8 @@ type LeaderCardProps = {
   leader: Leader;
   isExpanded: boolean;
   isShrinking: boolean;
+  isSwitchingIn: boolean;
+  isSwitchingOut: boolean;
   isAnimating: boolean;
   useInlineExpand: boolean;
   onOpen: (leader: Leader) => void;
@@ -48,6 +52,8 @@ function LeaderCard({
   leader,
   isExpanded,
   isShrinking,
+  isSwitchingIn,
+  isSwitchingOut,
   isAnimating,
   useInlineExpand,
   onOpen,
@@ -99,14 +105,14 @@ function LeaderCard({
     if (isExpanded || isShrinking) closeReportedRef.current = false;
   }, [isExpanded, isShrinking]);
 
-  const showExpandedChrome = isExpanded || isShrinking;
+  const showExpandedChrome = isExpanded || isShrinking || isSwitchingOut;
 
   return (
     <article
-      className={`leader-card${isExpanded ? " is-expanded" : ""}${isShrinking ? " is-shrinking" : ""}`}
+      className={`leader-card${isExpanded ? " is-expanded" : ""}${isShrinking ? " is-shrinking" : ""}${isSwitchingIn ? " is-switching-in" : ""}${isSwitchingOut ? " is-switching-out" : ""}`}
       aria-labelledby={titleId}
       aria-expanded={isExpanded}
-      aria-busy={isShrinking}
+      aria-busy={isShrinking || isSwitchingIn || isSwitchingOut}
       tabIndex={isExpanded || isShrinking || isAnimating ? -1 : 0}
       role="button"
       onClick={handleActivate}
@@ -182,61 +188,57 @@ function LeaderCard({
 export function LeadershipSection() {
   const { leadership } = siteConfig;
   const [active, setActive] = useState<Leader | null>(null);
-  const [pendingLeader, setPendingLeader] = useState<Leader | null>(null);
   const [isClosing, setIsClosing] = useState(false);
+  const [isSwitching, setIsSwitching] = useState(false);
+  const [switchFromIndex, setSwitchFromIndex] = useState(-1);
   const isLargeScreen = useMinWidth(LG_BREAKPOINT);
   const inlineCloseRef = useRef<HTMLButtonElement>(null);
   const shrinkFallbackRef = useRef<number | null>(null);
+  const switchTimerRef = useRef<number | null>(null);
   const shrinkCompleteRef = useRef(false);
-  const pendingLeaderRef = useRef<Leader | null>(null);
   const useInlineDetail = Boolean(active && isLargeScreen && !isClosing);
-  const isAnimating = Boolean(isLargeScreen && isClosing);
+  const isAnimating = Boolean(isLargeScreen && (isClosing || isSwitching));
   const activeIndex = active
     ? leadership.people.findIndex((person) => person.name === active.name)
     : -1;
 
-  pendingLeaderRef.current = pendingLeader;
-
   const openLeader = useCallback(
     (leader: Leader) => {
       if (!isLargeScreen) {
-        setPendingLeader(null);
         setIsClosing(false);
+        setIsSwitching(false);
         setActive(leader);
         return;
       }
 
-      if (isClosing) {
-        if (pendingLeader?.name !== leader.name) {
-          setPendingLeader(leader);
-        }
-        return;
-      }
-
+      if (isClosing || isSwitching) return;
       if (active?.name === leader.name) return;
 
       if (active) {
-        setPendingLeader(leader);
-        setIsClosing(true);
+        setSwitchFromIndex(
+          leadership.people.findIndex((person) => person.name === active.name),
+        );
+        setIsSwitching(true);
+        setActive(leader);
         return;
       }
 
-      setPendingLeader(null);
       setIsClosing(false);
+      setIsSwitching(false);
       setActive(leader);
     },
-    [active, isClosing, isLargeScreen, pendingLeader],
+    [active, isClosing, isSwitching, isLargeScreen, leadership.people],
   );
 
   const closeLeader = useCallback(() => {
     if (active && isLargeScreen) {
-      setPendingLeader(null);
+      setIsSwitching(false);
       setIsClosing(true);
       return;
     }
     setActive(null);
-    setPendingLeader(null);
     setIsClosing(false);
+    setIsSwitching(false);
   }, [active, isLargeScreen]);
 
   const handleShrinkComplete = useCallback(() => {
@@ -246,13 +248,6 @@ export function LeadershipSection() {
     if (shrinkFallbackRef.current !== null) {
       window.clearTimeout(shrinkFallbackRef.current);
       shrinkFallbackRef.current = null;
-    }
-
-    if (pendingLeaderRef.current) {
-      setActive(pendingLeaderRef.current);
-      setPendingLeader(null);
-      setIsClosing(false);
-      return;
     }
 
     setActive(null);
@@ -269,7 +264,7 @@ export function LeadershipSection() {
     shrinkFallbackRef.current = window.setTimeout(() => {
       shrinkFallbackRef.current = null;
       handleShrinkComplete();
-    }, INLINE_TRANSITION_MS + 80);
+    }, INLINE_SHRINK_MS + 80);
 
     return () => {
       if (shrinkFallbackRef.current !== null) {
@@ -278,6 +273,23 @@ export function LeadershipSection() {
       }
     };
   }, [active, handleShrinkComplete, isClosing, isLargeScreen]);
+
+  useEffect(() => {
+    if (!isSwitching) return;
+
+    switchTimerRef.current = window.setTimeout(() => {
+      switchTimerRef.current = null;
+      setIsSwitching(false);
+      setSwitchFromIndex(-1);
+    }, INLINE_SWITCH_MS + 80);
+
+    return () => {
+      if (switchTimerRef.current !== null) {
+        window.clearTimeout(switchTimerRef.current);
+        switchTimerRef.current = null;
+      }
+    };
+  }, [isSwitching, active?.name]);
 
   useEffect(() => {
     if (!active || !isLargeScreen) return;
@@ -295,12 +307,12 @@ export function LeadershipSection() {
 
     const focusTimer = window.setTimeout(() => {
       inlineCloseRef.current?.focus();
-    }, INLINE_TRANSITION_MS + 20);
+    }, isSwitching ? INLINE_SWITCH_MS + 40 : INLINE_EXPAND_MS + 40);
 
     return () => {
       window.clearTimeout(focusTimer);
     };
-  }, [useInlineDetail, active?.name]);
+  }, [useInlineDetail, active?.name, isSwitching]);
 
   return (
     <section
@@ -314,7 +326,7 @@ export function LeadershipSection() {
       </div>
       <div className="leadership-grid-shell">
         <div
-          className={`leadership-grid${active && isLargeScreen ? " has-detail" : ""}${isClosing ? " is-closing" : ""}${isAnimating ? " is-animating" : ""}`}
+          className={`leadership-grid${active && isLargeScreen ? " has-detail" : ""}${isClosing ? " is-closing" : ""}${isSwitching ? " is-switching" : ""}${isAnimating ? " is-animating" : ""}`}
         >
           {leadership.people.map((person, index) => (
             <LeaderCard
@@ -322,6 +334,8 @@ export function LeadershipSection() {
               leader={person}
               isExpanded={useInlineDetail && active?.name === person.name}
               isShrinking={isClosing && active?.name === person.name}
+              isSwitchingIn={isSwitching && useInlineDetail && active?.name === person.name}
+              isSwitchingOut={isSwitching && switchFromIndex === index}
               isAnimating={isAnimating}
               useInlineExpand={isLargeScreen}
               onOpen={openLeader}
