@@ -6,9 +6,12 @@ import { StoryTimeline } from "@/components/StoryTimeline";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: `Our Story | ${siteConfig.name}`,
+  title: `Our Story`,
   description:
     "A journey of vision, innovation, and purpose — building world-class education from Nepal to the world.",
+  alternates: {
+    canonical: "/our-story/",
+  },
 };
 
 export default function OurStoryPage() {

@@ -29,8 +29,63 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Deerwalk Group",
-  description: "A Nepali family of institutions",
+  metadataBase: new URL("https://deerwalkgroup.com"),
+  title: {
+    default: "Deerwalk Group",
+    template: "%s | Deerwalk Group",
+  },
+  description:
+    "Deerwalk Group is a Nepali family of institutions in education, technology, and community development, united by a mission to grow capable future leaders.",
+  applicationName: "Deerwalk Group",
+  keywords: [
+    "Deerwalk Group",
+    "Nepal education",
+    "schools in Nepal",
+    "technology institute Nepal",
+    "community development Nepal",
+    "Deerwalk foundation",
+    "Deerwalk learning center",
+  ],
+  authors: [{ name: "Deerwalk Group" }],
+  creator: "Deerwalk Group",
+  publisher: "Deerwalk Group",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://deerwalkgroup.com/",
+    title: "Deerwalk Group",
+    description:
+      "A Nepali family of institutions in education, technology, and community development.",
+    siteName: "Deerwalk Group",
+    images: [
+      {
+        url: "/images/dwg/hero.webp",
+        width: 1200,
+        height: 630,
+        alt: "Deerwalk Group institutions and community",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Deerwalk Group",
+    description: "A Nepali family of institutions",
+    images: ["/images/dwg/hero.webp"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export const viewport: Viewport = {
