@@ -16,6 +16,7 @@ export function DwgHeader({ activeHref = "" }: DwgHeaderProps) {
   const menuId = useId();
   const institutionsMenuId = useId();
   const institutionsRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const sync = () => {
@@ -91,8 +92,17 @@ export function DwgHeader({ activeHref = "" }: DwgHeaderProps) {
   }, []);
 
   useEffect(() => {
-    document.body.classList.toggle("nav-open", menuOpen);
-    return () => document.body.classList.remove("nav-open");
+    if (!menuOpen) return;
+    if (!window.matchMedia("(max-width: 900px)").matches) return;
+
+    const preventScroll = (event: TouchEvent) => {
+      const nav = navRef.current;
+      if (nav?.contains(event.target as Node)) return;
+      event.preventDefault();
+    };
+
+    document.addEventListener("touchmove", preventScroll, { passive: false });
+    return () => document.removeEventListener("touchmove", preventScroll);
   }, [menuOpen]);
 
   const closeMenu = () => {
@@ -119,6 +129,7 @@ export function DwgHeader({ activeHref = "" }: DwgHeaderProps) {
         </button>
 
         <nav
+          ref={navRef}
           id={menuId}
           className="dwg-nav"
           aria-label="Primary"

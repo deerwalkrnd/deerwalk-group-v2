@@ -6,6 +6,10 @@ export function FounderMessage() {
 
   return (
     <section className="founder-message" id="about" aria-labelledby="founder-heading">
+      <h2 id="founder-heading" className="founder-heading">
+        <span>{founder.titleLine1}</span>
+        <span className="founder-accent">{founder.titleLine2}</span>
+      </h2>
       <div className="founder-photo">
         <ResponsiveImage
           src={founder.image}
@@ -16,16 +20,10 @@ export function FounderMessage() {
           className="founder-image"
         />
       </div>
-      <div className="founder-copy">
-        <h2 id="founder-heading">
-          <span>{founder.titleLine1}</span>
-          <span className="founder-accent">{founder.titleLine2}</span>
-        </h2>
-        <p>{founder.body}</p>
-        <div className="founder-signoff">
-          <span className="founder-rule" aria-hidden="true" />
-          <span className="founder-name">{founder.name}</span>
-        </div>
+      <p className="founder-body">{founder.body}</p>
+      <div className="founder-signoff">
+        <span className="founder-rule" aria-hidden="true" />
+        <span className="founder-name">{founder.name}</span>
       </div>
     </section>
   );
