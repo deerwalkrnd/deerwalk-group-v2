@@ -17,7 +17,7 @@
   --color-footer-line: #2a3946;
   --font-sans: var(--font-inter), "Segoe UI", sans-serif;
   --font-display: var(--font-manrope), var(--font-inter), sans-serif;
-  --font-body: var(--font-roboto), var(--font-inter), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
   --font-serif: var(--font-fraunces), Georgia, serif;
   --page-pad: clamp(1rem, 4vw, 5rem);
   --max: 1200px;
@@ -143,6 +143,7 @@ ul {
   align-items: center;
   width: 100%;
   height: 100px;
+  --header-height: 100px;
   border-radius: 0;
   opacity: 1;
   background: #0f5288;
@@ -315,10 +316,6 @@ ul {
   display: none;
 }
 
-body.nav-open {
-  overflow: hidden;
-}
-
 /* Tablet */
 @media (max-width: 1100px) {
   .dwg-header {
@@ -345,6 +342,7 @@ body.nav-open {
 @media (max-width: 900px) {
   .dwg-header {
     height: 72px;
+    --header-height: 72px;
   }
 
   .dwg-header-inner {
@@ -392,18 +390,25 @@ body.nav-open {
     transform: translateY(-7px) rotate(-45deg);
   }
 
+  .dwg-header.is-open .dwg-header-inner {
+    z-index: 3;
+  }
+
   .dwg-nav {
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: var(--header-height);
     left: 0;
     right: 0;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: stretch;
     gap: 0;
     width: auto;
+    max-height: calc(100vh - var(--header-height));
     padding: 0.5rem 1.25rem 1.25rem;
+    overflow-y: auto;
     background: #0f5288;
     box-shadow: 0 16px 28px rgba(11, 42, 74, 0.28);
     transform-origin: top center;
@@ -478,7 +483,7 @@ body.nav-open {
   .nav-backdrop {
     display: block;
     position: fixed;
-    inset: 72px 0 0;
+    inset: var(--header-height) 0 0;
     z-index: 1;
     border: 0;
     background: rgba(4, 21, 34, 0.45);
@@ -489,6 +494,7 @@ body.nav-open {
 @media (max-width: 480px) {
   .dwg-header {
     height: 64px;
+    --header-height: 64px;
   }
 
   .dwg-header-inner {
@@ -500,7 +506,7 @@ body.nav-open {
   }
 
   .nav-backdrop {
-    inset: 64px 0 0;
+    inset: var(--header-height) 0 0;
   }
 
   .dwg-nav {
@@ -604,6 +610,17 @@ body.nav-open {
   color: #0e3b65;
 }
 
+@media (max-width: 860px) {
+  .dwg-hero-body {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .dwg-hero-title {
+    font-weight: 700;
+    line-height: 24px;
+  }
+}
+
 .dwg-hero-body-line {
   display: block;
   white-space: pre;
@@ -627,6 +644,7 @@ body.nav-open {
   background: linear-gradient(90deg, #0f5288 0%, #041522 185.28%);
 }
 
+
 .mission-band p {
   max-width: 1319px;
   margin: 0;
@@ -644,6 +662,10 @@ body.nav-open {
     min-height: 208px;
     padding: 2rem 1.25rem;
   }
+  .mission-band p{
+  line-height: 26.4px;
+  font-size: 10px;
+}
 }
 
 /* —— Founder —— */
@@ -1604,7 +1626,7 @@ body.nav-open {
   }
 
   .dwg-hero-title {
-    font-size: clamp(1.4rem, 1.1rem + 1.5vw, 1.75rem);
+    font-size: clamp(1rem, 0.5rem + 1vw, 1.75rem);
     line-height: 1.25;
   }
 

@@ -60,7 +60,8 @@ export const siteConfig = {
     { href: "/#institution-dds", label: "DDS" },
     { href: "/#institution-dbs", label: "DBS" },
     { href: "/#institution-foundation", label: "Deerwalk Foundation" },
-    { href: "/#institution-learning-center", label: "Deerwalk Learning Center" },
+    { href: "/#institution-learningcenter", label: "Deerwalk Learning Center" },
+    { href: "/#institution-trainingcenter", label: "Deerwalk Training Center" },
     { href: "/#institution-coop", label: "Deerwalk Coop" },
   ] satisfies NavLink[],
   hero: {
@@ -187,7 +188,7 @@ export const siteConfig = {
 
       },
       {
-        id: "learning-center",
+        id: "trainingcenter",
         name: "Deerwalk Training Center",
         description:
           "Professional and corporate upskilling — the group's fastest route to employment.",
