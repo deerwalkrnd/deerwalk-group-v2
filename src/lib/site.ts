@@ -94,26 +94,26 @@ export const siteConfig = {
       {
         name: "Rudra Pandey",
         role: "Chairperson Emeritus / Founder",
-        image: "/images/dwg/leader-rudra.png",
+        image: "/images/dwg/leader-rudra.webp",
         bio: "Rudra is a pioneer in the software outsourcing industry in Nepal with significant IT experience in the financial service industry. He received his Bachelor's degree in Electrical Engineering from Pakistan and PhD in Economics from Northeastern University, USA. His vision is to create a comprehensive learning in Nepal focusing on technology and its application for the benefit of the country.",
       },
       {
         name: "Hitesh Karki",
         role: "Chairperson",
-        image: "/images/dwg/leader-hitesh.png",
+        image: "/images/dwg/leader-hitesh.webp",
         bio: "Hitesh's core responsibility is to look after the curriculum, ensure timely execution of classes and help connect the students with the happenings of the industry. He completed his Bachelor's degree in Computer Science, from Ferguson College, Pune University, his MBA (Executive) from Kathmandu University (KU) and is currently pursuing his PhD from Kathmandu University.",
       },
       {
         name: "Samjhana Pokhrel",
         role: "Senior Vice President (SVP) of Operations",
-        image: "/images/dwg/leader-samjhana.png",
+        image: "/images/dwg/leader-samjhana.webp",
         imagePosition: "center 18%",
         bio: "Samjhana brings over eight years of experience in higher education, having contributed to key areas such as Admissions, Administration, Examination, and Placement. As Senior Vice President (SVP) of Operations, she is dedicated to advancing academic quality, driving innovation, and strengthening institutional growth. She holds a Bachelor's in Information Management and a Master's in English Literature from Pokhara University, along with a Master's in Data Science from the University of Westminster, London—reflecting her interdisciplinary expertise across humanities, management, and technology. With a strong blend of academic and administrative insight, Samjhana is committed to fostering a forward-thinking, student-focused academic environment.",
       },
       {
         name: "Pooja Neupane",
         role: "Director of Finance",
-        image: "/images/dwg/leader-pooja.png",
+        image: "/images/dwg/leader-pooja.webp",
         bio: "Pooja Neupane has recently assumed the role of Associate Director of Finance at Deerwalk Group Limited. Holding a Chartered Accountant designation from the Institute of Chartered Accountants of India, her professional journey includes notable experience at TR Upadhya and Co., where she honed her skills in accounting and finance.",
       },
     ] satisfies Leader[],
@@ -144,7 +144,7 @@ export const siteConfig = {
           "Since opening in 2025, Deerwalk Pokhara School has brought Deerwalk's Read, Write, Code philosophy to students across Kaski, with dedicated courses in Sanskrit, coding, and public speaking, and reading instruction in both English and Nepali from the earliest grades, across both Junior and Senior levels.",
         cta: "Visit DPS site →",
         href: "https://www.deerwalk.edu.np/pokhara-school",
-        image: "/images/dwg/DPS.jpg",
+        image: "/images/dwg/DPS.webp",
         type:"School",
       },
       {
@@ -182,7 +182,7 @@ export const siteConfig = {
           "Since opening in 2025, Deerwalk Bharatpur School has extended Deerwalk's Read, Write, Code philosophy to students across Chitwan, structured across Junior and Senior levels. Its curriculum connects classroom learning with real-world application, marking Deerwalk's continued expansion of quality education beyond Kathmandu.",
         cta: "Visit DBS site →",
         href: "https://deerwalk.edu.np/bharatpur-school",
-        image: "/images/dwg/DBS.jpg",
+        image: "/images/dwg/DBS.webp",
         type:"School",
 
       },
@@ -195,7 +195,7 @@ export const siteConfig = {
           "In more than a decade since its founding in 2011, Deerwalk Training Center has trained over 5,000 students across 135+ courses in software, data, design, and other industries. Every program pairs hands-on projects with mentors currently working in the field, built on the principle that a course should prepare someone for the job waiting after it.",
         cta: "Visit DTC site →",
         href: "https://deerwalktrainingcenter.com/",
-        image: "/images/dwg/inst-training.png",
+        image: "/images/dwg/inst-training.webp",
         type:"Training Center",
       },
       {
@@ -208,7 +208,7 @@ export const siteConfig = {
         cta: "Visit Socials →",
         linkLabel: "Visit Socials",
         href: "https://www.instagram.com/deerwalk.coop/",
-        image: "/images/dwg/DeerwalkCOUP.png",
+        image: "/images/dwg/DeerwalkCOUP.webp",
         type:"Coop",
       },
       {
@@ -220,7 +220,7 @@ export const siteConfig = {
           "Since its establishment in 2014, the Deerwalk Foundation has directed support toward schools, students, and communities that would otherwise have limited access to opportunity. Its work spans education funding, community initiatives, and direct support wherever the need is greatest. The principle guiding it has remained constant: opportunity holds more value when it's shared.",
         cta: "Visit Page →",
         href: "https://deerwalk.org/",
-        image: "/images/dwg/Deerwalk_Foundation.jpg",
+        image: "/images/dwg/Deerwalk_Foundation.webp",
         type:"Non-Profit Organization",
       },
       {
@@ -232,7 +232,7 @@ export const siteConfig = {
           "Since 2016, Deerwalk Learning Center has offered free, curriculum-aligned video lessons to students from Class 4 through Class 11, giving them access to quality instruction regardless of their school's resources. The lessons are developed in line with the curriculum set by Nepal's Curriculum Development Center, addressing a long-standing gap in access to qualified teaching across the country.",
         cta: "Visit Site →",
         href: "https://deerwalk.edu.np/learning-center",
-        image: "/images/dwg/LearningCenter.jpg",
+        image: "/images/dwg/LearningCenter.webp",
         type:"Non-Profit Organization",
       }
     ] satisfies Institution[],
