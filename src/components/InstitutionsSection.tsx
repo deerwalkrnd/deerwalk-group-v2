@@ -23,7 +23,7 @@ function InstitutionCard({
         alt=""
         width={920}
         height={520}
-        sizes="(max-width: 768px) 100vw, (max-width: 1100px) 50vw, 33vw"
+        sizes="(max-width: 900px) 50vw, (max-width: 1100px) 50vw, 33vw"
         className="institution-image"
       />
       <div className="institution-overlay" aria-hidden="true" />
@@ -95,7 +95,7 @@ export function InstitutionsSection() {
     >
       <div className="institutions-intro">
         <h2 id="institutions-heading">{institutions.title}</h2>
-        <p>{institutions.subtitle}</p>
+        {/* <p>{institutions.subtitle}</p> */}
       </div>
       <div className="institutions-grid">
         {institutions.items.map((item) => (
