@@ -232,7 +232,7 @@ export const siteConfig = {
         detail:
           "Since 2016, Deerwalk Learning Center has offered free, curriculum-aligned video lessons to students from Class 4 through Class 11, giving them access to quality instruction regardless of their school's resources. The lessons are developed in line with the curriculum set by Nepal's Curriculum Development Center, addressing a long-standing gap in access to qualified teaching across the country.",
         cta: "Visit Site →",
-        href: "https://deerwalk.edu.np/learning-center",
+        href: "https://dlc.dwit.edu.np/",
         image: "/images/dwg/LearningCenter.webp",
         type:"Non-Profit Organization",
       }
