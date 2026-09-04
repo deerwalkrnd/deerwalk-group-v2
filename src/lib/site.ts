@@ -109,7 +109,7 @@ export const siteConfig = {
         role: "Senior Vice President (SVP) of Operations",
         image: "/images/dwg/leader-samjhana.webp",
         imagePosition: "center 18%",
-        bio: "Samjhana brings over eight years of experience in higher education, having contributed to key areas such as Admissions, Administration, Examination, and Placement. As Senior Vice President (SVP) of Operations, she is dedicated to advancing academic quality, driving innovation, and strengthening institutional growth. She holds a Bachelor's in Information Management and a Master's in English Literature from Pokhara University, along with a Master's in Data Science from the University of Westminster, London—reflecting her interdisciplinary expertise across humanities, management, and technology. With a strong blend of academic and administrative insight, Samjhana is committed to fostering a forward-thinking, student-focused academic environment.",
+        bio:"Samjhana Pokhrel brings over eight years of experience in higher education, with expertise in Admissions, Administration, Examination, Placement, and institutional operations. As SVP of Operations, she focuses on operational excellence, academic quality, innovation, and strategic institutional growth. She holds a Bachelor’s in Information Management, a Master’s in English Literature from Pokhara University, and a Master’s in Data Science from the University of Westminster, London. With her interdisciplinary background and strong academic and administrative insight, she is committed to fostering an efficient, innovative, and student-centered academic environment.",
       },
       {
         name: "Pooja Neupane",
