@@ -7,44 +7,63 @@
     display: flex;
     justify-content: center;
     width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
   }
 
   .leadership-grid {
     --leader-gap: clamp(1.5rem, 4vw, 3rem);
-    --leader-row-width: min(1224px, 100%);
+    --leader-base-width: min(1224px, 100%);
+    --leader-row-width: var(--leader-base-width);
     --leader-slot: calc((var(--leader-row-width) - 3 * var(--leader-gap)) / 4);
+    /* Expanded size stays tied to the collapsed row, not the grown row */
     --leader-expanded-width: min(
       520px,
-      calc((var(--leader-row-width) - 3 * var(--leader-gap)) * 0.58)
+      calc((var(--leader-base-width) - 3 * var(--leader-gap)) * 0.58)
     );
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
     gap: var(--leader-gap);
     width: var(--leader-row-width);
-    max-width: var(--leader-row-width);
+    max-width: 100%;
     margin-inline: 0;
+    box-sizing: border-box;
     transition: width var(--leader-duration) var(--leader-ease);
   }
 
+  /*
+    Grow into leftover shell space so the other three cards recover size,
+    but never past "3×collapsed-slot + expanded + gaps" and never past 100%.
+  */
   .leadership-grid.has-detail:not(.is-closing),
   .leadership-grid.has-detail.is-switching {
-    max-width: none;
-    width: calc(
-      3 * var(--leader-slot) + 3 * var(--leader-gap) + var(--leader-expanded-width)
+    --leader-row-width: min(
+      calc(
+        var(--leader-base-width)
+          - (var(--leader-base-width) - 3 * var(--leader-gap)) / 4
+          + var(--leader-expanded-width)
+      ),
+      100%
     );
+    --leader-slot: calc(
+      (var(--leader-row-width) - var(--leader-expanded-width) - 3 * var(--leader-gap)) / 3
+    );
+    width: var(--leader-row-width);
+    max-width: 100%;
     align-items: center;
   }
 
   .leadership-grid.has-detail.is-closing {
-    max-width: none;
     width: var(--leader-row-width);
+    max-width: 100%;
     transition: width var(--leader-duration-fast) var(--leader-ease-out);
   }
 
   .leader-card {
     flex: 0 0 var(--leader-slot);
     width: var(--leader-slot);
+    min-width: 0;
     flex-shrink: 0;
     transition:
       flex var(--leader-duration) var(--leader-ease),
